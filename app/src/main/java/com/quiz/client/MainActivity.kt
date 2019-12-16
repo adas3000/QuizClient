@@ -2,7 +2,9 @@ package com.quiz.client
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import butterknife.ButterKnife
+import butterknife.OnClick
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,7 +13,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         ButterKnife.bind(this)
-        
 
     }
+
+
+
+
 }
