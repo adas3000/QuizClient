@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="sport_category_text">Sport</string>
+    <string name="game_category_text">Games</string>
+    <string name="culture_category_text">Culture</string>
+    <string name="gen_knowledge_category_text">General Knowledge</string>
+</resources>
