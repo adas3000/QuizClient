@@ -10,4 +10,7 @@ interface QuizApiService {
     @GET("/api/category/all")
     fun listCategories(): Call<List<String>>
 
+
+
+
 }
