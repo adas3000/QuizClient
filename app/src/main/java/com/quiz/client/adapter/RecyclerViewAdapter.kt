@@ -6,11 +6,19 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
+import com.quiz.client.view.ICategoryView
 
-class RecyclerViewAdapter(val categoryList:List<String>):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(val categoryList:List<String>,val categoryView:ICategoryView):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+
+        holder.itemView.setOnClickListener{
+            categoryView.onCategoryClick(categoryList[position])
+        }
+
         holder?.categoryName?.text = categoryList[position]
     }
 
@@ -27,7 +35,6 @@ class RecyclerViewAdapter(val categoryList:List<String>):RecyclerView.Adapter<Re
             val categoryName = view.findViewById<TextView>(R.id.textView_category)
 
     }
-
 
 
 }
