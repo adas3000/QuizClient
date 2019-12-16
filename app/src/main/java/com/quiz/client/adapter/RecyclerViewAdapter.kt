@@ -11,6 +11,7 @@ class RecyclerViewAdapter(val categoryList:ArrayList<String>):RecyclerView.Adapt
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder?.categoryName?.text = categoryList[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

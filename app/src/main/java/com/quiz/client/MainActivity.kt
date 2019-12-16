@@ -3,17 +3,17 @@ package com.quiz.client
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.ButterKnife
 import butterknife.OnClick
+import com.quiz.client.adapter.RecyclerViewAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter:RecyclerView.Adapter<*>
-    private lateinit var viewManager:RecyclerView.LayoutManager
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +23,21 @@ class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
 
-        viewManager = LinearLayoutManager(this)
+        val rv = rv_Categories
+        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+
+        val categories = ArrayList<String>()
+        categories.add("Football")
+        categories.add("Basketball")
+        categories.add("Books")
+        categories.add("Comics")
+        categories.add("Vodka")
+        categories.add("DeSth")
 
 
+        var adapter = RecyclerViewAdapter(categories)
+
+        rv.adapter = adapter
 
 
     }
