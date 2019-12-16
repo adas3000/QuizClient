@@ -24,13 +24,11 @@ class CategoryPresenter : ICategoryPresenter {
         this.rv = rv
     }
 
-    override fun onCategory() {
+    override fun onCategory(quizApiService: QuizApiService) {
 
-        val quizApiService: QuizApiService = retrofit.create(QuizApiService::class.java)
 
         val call = quizApiService.listCategories()
 
-        val context = this
 
         call.enqueue(object: Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
