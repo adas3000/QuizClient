@@ -16,7 +16,7 @@ class RecyclerViewAdapter(val categoryList:List<String>,val categoryView:ICatego
 
 
         holder.itemView.setOnClickListener{
-            categoryView.onCategoryClick(categoryList[position])
+            categoryView.onCategoryResult(categoryList[position])
         }
 
         holder?.categoryName?.text = categoryList[position]
