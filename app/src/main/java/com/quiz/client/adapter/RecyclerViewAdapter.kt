@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
 
-class RecyclerViewAdapter(val categoryList:ArrayList<String>):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(val categoryList:List<String>):RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
