@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorBlack">#000</color>
-    <color name="colorAqua">#7FDBFF</color>
+    <color name="colorAqua">#EDB95E</color>
+    <color name="colorCorrect">#82DD55</color>
+    <color name="colorInCorrect">#E23636</color>
 </resources>
