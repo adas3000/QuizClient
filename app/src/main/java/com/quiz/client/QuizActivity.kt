@@ -35,14 +35,7 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
 
-        textView_question.text = questionList[0].value
-
-        val rv_chocies = rv_choices
-        rv_chocies.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
-        rv_chocies.setHasFixedSize(true)
-
-        rv_chocies.adapter = RecyclerViewAnswerAdapter(questionList.get(0).choices!!.toList(),questionList.get(0).answer!!.correct!!.value,this)
-
+        setQuestionView(0)
     }
 
     override fun setNextQuestion(correct: Boolean) {

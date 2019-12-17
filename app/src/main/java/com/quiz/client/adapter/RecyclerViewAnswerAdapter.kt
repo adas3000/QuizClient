@@ -27,9 +27,14 @@ class RecyclerViewAnswerAdapter(val choiceList:List<Choice>,val correctAnswer:St
 
         holder?.choiceName.text=pos+choiceList[position].value
 
-        holder?.choiceName.setOnClickListener {
-            val u_choice = holder?.choiceName.text.toString()
 
+        println("correct:"+correctAnswer)
+
+        holder?.choiceName.setOnClickListener {
+            var u_choice = holder?.choiceName.text.toString()
+            u_choice = u_choice.substring(u_choice.indexOf(".")+1)
+
+            println("user:"+u_choice)
             view.setNextQuestion(u_choice.equals(correctAnswer))
         }
 
