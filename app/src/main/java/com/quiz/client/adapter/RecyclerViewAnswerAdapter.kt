@@ -22,7 +22,9 @@ class RecyclerViewAnswerAdapter(val choiceList:List<Choice>):RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder?.choiceName.text=choiceList[position].value
+        val pos = (position+1).toString()+"."
+
+        holder?.choiceName.text=pos+choiceList[position].value
 
 
     }
