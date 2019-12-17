@@ -51,7 +51,14 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
     @OnClick(R.id.fiveQuestion, R.id.tenQuestion, R.id.fifteenQuestion, R.id.twentyQuestion)
     fun onTextViewClicked(view: View) {
 
-        val how:Int = view.text
+        var count:Int = 0
+
+        when(view.id){
+            R.id.fiveQuestion -> count = 5
+            R.id.tenQuestion -> count = 10
+            R.id.fifteenQuestion -> count = 15
+            R.id.twentyQuestion -> count = 20
+        }
 
 
 
