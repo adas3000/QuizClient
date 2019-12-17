@@ -25,15 +25,14 @@ class HowManyPresenter : IHowManyPresenter {
         call.enqueue(object : Callback<List<Question>> {
 
             override fun onFailure(call: Call<List<Question>>, t: Throwable) {
-                iHowManyView.onHowManyResult("Failure")
+                iHowManyView.onErrorResult("Failure")
             }
 
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
                 if (response.isSuccessful) {
-                    iHowManyView.onHowManyResult("Success")
-                    println("Result:"+response.body()!!.get(0).answer?.correct?.value)
+                    iHowManyView.onHowManyResult(response.body()!!.toList())
                 }
-                else iHowManyView.onHowManyResult("Failure")
+                else iHowManyView.onErrorResult("Failure")
 
 
             }

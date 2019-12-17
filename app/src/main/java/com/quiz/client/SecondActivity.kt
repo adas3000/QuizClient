@@ -11,6 +11,7 @@ import butterknife.OnClick
 import butterknife.OnTouch
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
+import com.quiz.client.model.Question
 import com.quiz.client.presenter.HowManyPresenter
 import com.quiz.client.service.QuizApiService
 import com.quiz.client.view.IHowManyView
@@ -71,7 +72,13 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
         howManyPresenter.onHowMany(quizApiService,category,count)
     }
 
-    override fun onHowManyResult(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+    override fun onHowManyResult(questionList: List<Question>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun onErrorResult(message: String) {
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+    }
+
 }
