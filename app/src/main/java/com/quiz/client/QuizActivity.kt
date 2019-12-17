@@ -26,7 +26,7 @@ class QuizActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         rv.setHasFixedSize(true)
 
-        rv.adapter = RecyclerViewHeaderAdapter(listOf(5,6,7,8,9,11))
+        rv.adapter = RecyclerViewHeaderAdapter(questionList.size)
 
     }
 }
