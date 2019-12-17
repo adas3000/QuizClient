@@ -78,9 +78,8 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         QuestionListKeeper.questionListKeeper = questionList
 
-        
-
-
+        val intent = Intent(this,QuizActivity::class.java)
+        startActivity(intent)
 
     }
 

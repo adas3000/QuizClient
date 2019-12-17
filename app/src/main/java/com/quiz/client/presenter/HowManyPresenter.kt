@@ -33,8 +33,6 @@ class HowManyPresenter : IHowManyPresenter {
                     iHowManyView.onHowManyResult(response.body()!!.toList())
                 }
                 else iHowManyView.onErrorResult("Failure")
-
-
             }
         })
 
