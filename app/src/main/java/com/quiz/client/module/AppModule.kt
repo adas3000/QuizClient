@@ -1,4 +1,4 @@
-package com.quiz.client.model
+package com.quiz.client.module
 
 import com.quiz.client.service.QuizApiService
 import dagger.Module
