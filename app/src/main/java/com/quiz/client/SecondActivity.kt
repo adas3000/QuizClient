@@ -14,6 +14,7 @@ import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.model.Question
 import com.quiz.client.presenter.HowManyPresenter
 import com.quiz.client.service.QuizApiService
+import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IHowManyView
 import kotlinx.android.synthetic.main.activity_second.*
 import retrofit2.Retrofit
@@ -74,7 +75,13 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
 
     override fun onHowManyResult(questionList: List<Question>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        QuestionListKeeper.questionListKeeper = questionList
+
+        
+
+
+
     }
 
     override fun onErrorResult(message: String) {
