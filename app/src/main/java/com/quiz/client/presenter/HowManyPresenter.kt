@@ -20,22 +20,25 @@ class HowManyPresenter : IHowManyPresenter {
 
     override fun onHowMany(quizApiService: QuizApiService, category: String, value: Int) {
 
-        val call = quizApiService.listQuestions(category,value.toString())
+        val call = quizApiService.listQuestions(category, 1.toString())
 
-        call.enqueue(object:Callback<List<Question>>{
+        call.enqueue(object : Callback<List<Question>> {
 
             override fun onFailure(call: Call<List<Question>>, t: Throwable) {
-                println("failure")
+                iHowManyView.onHowManyResult("Failure")
             }
 
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
-                if(response.isSuccessful) println("Success")
-                else println("failure")
+                if (response.isSuccessful) {
+                    iHowManyView.onHowManyResult("Success")
+                    println("Result:"+response.body()!!.get(0).answer?.correct?.value)
+                }
+                else iHowManyView.onHowManyResult("Failure")
+
 
             }
         })
 
-        iHowManyView.onHowManyResult("Result:"+value)
 
     }
 }

@@ -8,38 +8,21 @@ class Question {
 
     @SerializedName("id")
     @Expose
-    val id:Long
-
-    @SerializedName("content")
+    var id: Int? = null
+    @SerializedName("value")
     @Expose
-    val content:String
-
+    var value: String? = null
     @SerializedName("choices")
     @Expose
-    var choices = HashSet<Choice>()
-
-
+    var choices: List<Choice>? = null
     @SerializedName("answer")
     @Expose
-    val answer:Answer
-
-
+    var answer: Answer? = null
     @SerializedName("category")
     @Expose
-    val category:String
+    var category: String? = null
 
-    constructor(id: Long, content: String, answer: Answer, category: String) {
-        this.id = id
-        this.content = content
-        this.answer = answer
-        this.category = category
-    }
 
-    constructor(){
-        this.id = 0
-        this.content=""
-        answer = Answer()
-        category=""
-    }
+
 
 }
