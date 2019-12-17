@@ -24,7 +24,6 @@ class RecyclerViewAnswerAdapter(val choiceList:List<Choice>):RecyclerView.Adapte
 
         holder?.choiceName.text=choiceList[position].value
 
-        
 
     }
 
