@@ -14,13 +14,11 @@ class CategoryPresenter : ICategoryPresenter {
 
     val iCategoryView:ICategoryView
     val retrofit:Retrofit
-    val context:Context
     val rv:RecyclerView
 
-    constructor(iCategoryView: ICategoryView,retrofit: Retrofit, context: Context,rv:RecyclerView) {
+    constructor(iCategoryView: ICategoryView,retrofit: Retrofit,rv:RecyclerView) {
         this.iCategoryView = iCategoryView
         this.retrofit = retrofit
-        this.context = context
         this.rv = rv
     }
 

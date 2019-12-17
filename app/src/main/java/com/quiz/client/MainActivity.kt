@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(),ICategoryView  {
         val rv = rv_Categories
         rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv.setHasFixedSize(true)
-        val categoryPresenter = CategoryPresenter(this,retrofit,this,rv)
+        val categoryPresenter = CategoryPresenter(this,retrofit,rv)
         categoryPresenter.onCategory(quizApiService)
 
 
