@@ -9,7 +9,6 @@ class Choice {
     @Expose
     val id:Long
 
-
     @SerializedName("value")
     @Expose
     val value:String
