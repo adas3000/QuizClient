@@ -23,8 +23,8 @@ class RecyclerViewHeaderAdapter(val count:Int) : RecyclerView.Adapter<RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-
     }
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tv = view.findViewById<TextView>(R.id.textView_square)
