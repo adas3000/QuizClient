@@ -36,6 +36,8 @@ class CategoryPresenter : ICategoryPresenter {
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if(response.isSuccessful) println("response success")
+                else println("response no success")
                 var adapter = RecyclerViewAdapter(response.body()!!.toList(),iCategoryView)
                 rv.adapter = adapter
             }
