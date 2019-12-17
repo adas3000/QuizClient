@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
 import com.quiz.client.model.Choice
+import com.quiz.client.view.IChoiceView
 
-class RecyclerViewAnswerAdapter(val choiceList:List<Choice>):RecyclerView.Adapter<RecyclerViewAnswerAdapter.ViewHolder>() {
+class RecyclerViewAnswerAdapter(val choiceList:List<Choice>,val correctAnswer:String,val view:IChoiceView):RecyclerView.Adapter<RecyclerViewAnswerAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +26,12 @@ class RecyclerViewAnswerAdapter(val choiceList:List<Choice>):RecyclerView.Adapte
         val pos = (position+1).toString()+"."
 
         holder?.choiceName.text=pos+choiceList[position].value
+
+        holder?.choiceName.setOnClickListener {
+            val u_choice = holder?.choiceName.text.toString()
+
+            view.setNextQuestion(u_choice.equals(correctAnswer))
+        }
 
 
     }

@@ -11,6 +11,8 @@ import com.quiz.client.model.Question
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IChoiceView
 import kotlinx.android.synthetic.main.activity_quiz.*
+import java.lang.IllegalArgumentException
+import java.lang.IndexOutOfBoundsException
 
 class QuizActivity : AppCompatActivity() , IChoiceView {
 
@@ -39,13 +41,12 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         rv_chocies.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
         rv_chocies.setHasFixedSize(true)
 
-        rv_chocies.adapter = RecyclerViewAnswerAdapter(questionList.get(0).choices!!.toList())
+        rv_chocies.adapter = RecyclerViewAnswerAdapter(questionList.get(0).choices!!.toList(),questionList.get(0).answer!!.correct!!.value,this)
 
     }
 
     override fun setNextQuestion(correct: Boolean) {
 
-        allQuestionCount++
         if(correct){
             correctCount++
             Toast.makeText(this,"Good!",Toast.LENGTH_SHORT).show()
@@ -56,7 +57,23 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         }
 
 
+    }
+
+    fun setQuestionView(index:Int){
+
+        if(index>=questionList.size || index<0){
+            throw IndexOutOfBoundsException("wrong index value")
+        }
+        textView_question.text = questionList[index].value
+
+        rv_choices.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
+        rv_choices.setHasFixedSize(true)
+
+        rv_choices.adapter = RecyclerViewAnswerAdapter(questionList.get(index).choices!!.toList(),questionList.get(index).answer!!.correct!!.value,
+            this)
+
 
     }
+
 
 }
