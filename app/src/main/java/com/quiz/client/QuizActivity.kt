@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.quiz.client.adapter.RecyclerViewHeaderAdapter
 import com.quiz.client.model.Question
 import com.quiz.client.util.QuestionListKeeper
 import kotlinx.android.synthetic.main.activity_quiz.*
@@ -24,6 +25,8 @@ class QuizActivity : AppCompatActivity() {
         val rv =rv_top
         rv.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         rv.setHasFixedSize(true)
+
+        rv.adapter = RecyclerViewHeaderAdapter(listOf(5,6,7,8,9,11))
 
     }
 }

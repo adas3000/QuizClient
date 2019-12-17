@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
 
-class RecyclerViewHeaderAdapter(val count: Int) : RecyclerView.Adapter<RecyclerViewHeaderAdapter.ViewHolder>() {
+class RecyclerViewHeaderAdapter(val list:List<Int>) : RecyclerView.Adapter<RecyclerViewHeaderAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,10 +18,11 @@ class RecyclerViewHeaderAdapter(val count: Int) : RecyclerView.Adapter<RecyclerV
     }
 
     override fun getItemCount(): Int {
-        return count
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
 
     }
 
