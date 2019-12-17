@@ -4,14 +4,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import butterknife.ButterKnife
 import butterknife.OnClick
+import butterknife.OnTouch
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.presenter.HowManyPresenter
 import com.quiz.client.service.QuizApiService
 import com.quiz.client.view.IHowManyView
+import kotlinx.android.synthetic.main.activity_second.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
@@ -35,7 +38,6 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         val intent: Intent = intent
 
-
         category = intent.getStringExtra("category")
 
         Toast.makeText(this, category, Toast.LENGTH_LONG).show()
@@ -46,23 +48,27 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
         quizApiService = retrofit.create(QuizApiService::class.java)
 
         howManyPresenter = HowManyPresenter(this)
-    }
 
-    @OnClick(R.id.fiveQuestion, R.id.tenQuestion, R.id.fifteenQuestion, R.id.twentyQuestion)
-    fun onTextViewClicked(view: View) {
 
-        var count:Int = 0
 
-        when(view.id){
-            R.id.fiveQuestion -> count = 5
-            R.id.tenQuestion -> count = 10
-            R.id.fifteenQuestion -> count = 15
-            R.id.twentyQuestion -> count = 20
+        fiveQuestion.setOnClickListener {
+            onTextViewClicked(5)
+        }
+        tenQuestion.setOnClickListener {
+            onTextViewClicked(10)
+        }
+        fifteenQuestion.setOnClickListener {
+            onTextViewClicked(15)
+        }
+        twentyQuestion.setOnClickListener {
+            onTextViewClicked(20)
         }
 
 
+    }
 
-        howManyPresenter.onHowMany(quizApiService,category,5)
+    fun onTextViewClicked(count: Int) {
+        howManyPresenter.onHowMany(quizApiService,category,count)
     }
 
     override fun onHowManyResult(message: String) {

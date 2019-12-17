@@ -1,6 +1,5 @@
 package com.quiz.client.presenter
 
-import android.content.Context
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.adapter.RecyclerViewAdapter
 import com.quiz.client.service.QuizApiService
@@ -8,17 +7,14 @@ import com.quiz.client.view.ICategoryView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class CategoryPresenter : ICategoryPresenter {
 
     val iCategoryView:ICategoryView
-    val retrofit:Retrofit
     val rv:RecyclerView
 
-    constructor(iCategoryView: ICategoryView,retrofit: Retrofit,rv:RecyclerView) {
+    constructor(iCategoryView: ICategoryView,rv:RecyclerView) {
         this.iCategoryView = iCategoryView
-        this.retrofit = retrofit
         this.rv = rv
     }
 
