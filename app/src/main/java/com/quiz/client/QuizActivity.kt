@@ -29,8 +29,6 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         questionList = QuestionListKeeper.questionListKeeper
         allQuestionCount = questionList.size
 
-
-        val rv_top =rv_top
         rv_top.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         rv_top.setHasFixedSize(true)
 
