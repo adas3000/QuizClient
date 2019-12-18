@@ -23,12 +23,19 @@ class FinishActivity : AppCompatActivity() {
             exitApp()
         }
         textView_Yes.setOnClickListener {
-
+            fromBegin()
         }
 
 
 
     }
+
+    fun fromBegin(){
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 
     fun exitApp(){
         this.finishAffinity()

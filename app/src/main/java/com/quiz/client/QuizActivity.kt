@@ -34,6 +34,9 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
 
+        for(str in questionList)
+            println(str.value)
+
         setQuestionView(0)
     }
 
@@ -61,6 +64,10 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
             startActivity(intent)
             finish()
         }
+
+        else setQuestionView(allQuestionCount)
+
+
 
 
     }
