@@ -1,5 +1,6 @@
 package com.quiz.client
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -27,7 +28,6 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
 
         questionList = QuestionListKeeper.questionListKeeper
-        allQuestionCount = questionList.size
 
         rv_top.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         rv_top.setHasFixedSize(true)
@@ -46,6 +46,20 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         else {
             Toast.makeText(this,"Wrong:(",Toast.LENGTH_SHORT).show()
+        }
+
+        allQuestionCount++
+
+        if(allQuestionCount==questionList.size){
+
+
+            val intent = Intent(this,FinishActivity::class.java).apply{
+                putExtra("score",correctCount.toString())
+                putExtra("all",allQuestionCount.toString())
+            }
+
+            startActivity(intent)
+            finish()
         }
 
 

@@ -80,7 +80,7 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         val intent = Intent(this,QuizActivity::class.java)
         startActivity(intent)
-
+        finish()
     }
 
     override fun onErrorResult(message: String) {
