@@ -20,7 +20,7 @@ class HowManyPresenter : IHowManyPresenter {
 
     override fun onHowMany(quizApiService: QuizApiService, category: String, value: Int) {
 
-        val call = quizApiService.listQuestions(category, 1.toString())
+        val call = quizApiService.listQuestions(category, value.toString())
 
         call.enqueue(object : Callback<List<Question>> {
 

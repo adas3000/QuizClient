@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(),ICategoryView  {
             putExtra("category",category)
         }
         startActivity(intent)
+        finish()
     }
 
 }
