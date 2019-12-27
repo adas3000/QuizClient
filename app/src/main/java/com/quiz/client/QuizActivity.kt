@@ -51,6 +51,8 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         allQuestionCount++
 
+        textView_question_count.setText(correctCount.toString()+"/"+allQuestionCount.toString())
+
         if(allQuestionCount==questionList.size){
 
 

@@ -26,11 +26,19 @@
             android:textSize="32sp"
             android:gravity="center"
     />
+    <TextView
+            android:text="0/0"
+            android:textSize="25sp"
+            android:gravity="right"
+            android:textColor="@color/colorAqua"
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content" android:id="@+id/textView_question_count"/>
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_choices"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="60dp"
     />
 
 
