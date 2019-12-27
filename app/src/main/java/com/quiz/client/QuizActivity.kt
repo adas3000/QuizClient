@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
@@ -13,7 +12,6 @@ import com.quiz.client.model.Question
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IChoiceView
 import kotlinx.android.synthetic.main.activity_quiz.*
-import java.lang.IllegalArgumentException
 import java.lang.IndexOutOfBoundsException
 
 class QuizActivity : AppCompatActivity() , IChoiceView {

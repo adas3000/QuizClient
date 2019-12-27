@@ -26,7 +26,7 @@ class CategoryPresenter : ICategoryPresenter {
 
         call.enqueue(object: Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("Failure")
+                println("Failure,msg:"+t.message)
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
