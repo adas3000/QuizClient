@@ -12,6 +12,7 @@
 
     <TextView
             android:hint="Score"
+            android:color="@color/colorAqua"
             android:gravity="left"
             android:textSize="32sp"
             android:layout_width="match_parent"

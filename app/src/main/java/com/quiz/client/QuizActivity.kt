@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
@@ -67,9 +68,6 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         else setQuestionView(allQuestionCount)
 
-
-
-
     }
 
     fun setQuestionView(index:Int){
@@ -86,6 +84,22 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
             this)
 
 
+    }
+
+    override fun onBackPressed() {
+        Toast.makeText(this,"ioasdjiaosd",Toast.LENGTH_SHORT).show()
+
+        val builder:AlertDialog.Builder = AlertDialog.Builder(this)
+            .setMessage("Are you sure you wanna quit from quiz?")
+            .setPositiveButton("Yes",{dialogInterface, i ->
+                super.onBackPressed()
+                finish()
+            })
+            .setNegativeButton("No",{dialogInterface,i->
+                dialogInterface.cancel()
+            })
+
+        builder.show()
     }
 
 
