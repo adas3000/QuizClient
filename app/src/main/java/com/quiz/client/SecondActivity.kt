@@ -42,7 +42,6 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         category = intent.getStringExtra("category")
 
-        //Toast.makeText(this, category, Toast.LENGTH_LONG).show()
 
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
         retrofit = appComponent.provideRetrofit()

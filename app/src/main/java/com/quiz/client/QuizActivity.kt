@@ -1,8 +1,10 @@
 package com.quiz.client
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +44,8 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
     override fun setNextQuestion(correct: Boolean) {
 
+        var color:String = "#82DD55"
+
         if(correct){
             correctCount++
             Toasty.success(this,"Good",Toasty.LENGTH_SHORT).show()
@@ -49,11 +53,15 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         else {
             Toasty.error(this,"Wrong",Toasty.LENGTH_SHORT).show()
+            color = "#E23636"
         }
+        rv_top.findViewHolderForAdapterPosition(allQuestionCount)?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
+            Color.parseColor(color))
 
         allQuestionCount++
 
         textView_question_count.setText(correctCount.toString()+"/"+allQuestionCount.toString())
+
 
         if(allQuestionCount==questionList.size){
 
