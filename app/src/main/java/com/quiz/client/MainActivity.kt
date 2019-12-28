@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity(),ICategoryView  {
         val quizApiService: QuizApiService = retrofit.create(QuizApiService::class.java)
 
         val rv = rv_Categories
-        //rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rv.layoutManager = GridLayoutManager(this,2)
         rv.setHasFixedSize(true)
         val categoryPresenter = CategoryPresenter(this,rv)
