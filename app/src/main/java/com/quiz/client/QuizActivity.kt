@@ -12,6 +12,7 @@ import com.quiz.client.adapter.RecyclerViewHeaderAdapter
 import com.quiz.client.model.Question
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IChoiceView
+import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_quiz.*
 import java.lang.IndexOutOfBoundsException
 
@@ -43,11 +44,11 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         if(correct){
             correctCount++
-            Toast.makeText(this,"Good!",Toast.LENGTH_SHORT).show()
+            Toasty.success(this,"Good",Toasty.LENGTH_SHORT).show()
         }
 
         else {
-            Toast.makeText(this,"Wrong:(",Toast.LENGTH_SHORT).show()
+            Toasty.error(this,"Wrong",Toasty.LENGTH_SHORT).show()
         }
 
         allQuestionCount++
@@ -87,10 +88,8 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
     }
 
     override fun onBackPressed() {
-        Toast.makeText(this,"ioasdjiaosd",Toast.LENGTH_SHORT).show()
-
         val builder:AlertDialog.Builder = AlertDialog.Builder(this)
-            .setMessage("Are you sure you wanna quit from quiz?")
+            .setMessage("Are you sure you wanna quit from quiz?You will loose all data from current quiz.")
             .setPositiveButton("Yes",{dialogInterface, i ->
                 super.onBackPressed()
                 finish()
