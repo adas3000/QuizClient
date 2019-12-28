@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
@@ -28,10 +29,10 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
 
-
         questionList = QuestionListKeeper.questionListKeeper
 
-        rv_top.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
+        //rv_top.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
+        rv_top.layoutManager = GridLayoutManager(this,15)
         rv_top.setHasFixedSize(true)
 
         rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
