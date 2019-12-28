@@ -14,7 +14,10 @@
         <TextView
                 android:hint="Category"
                 android:gravity="center"
+                android:background="@drawable/tv_frame"
                 android:textSize="36sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/textView_category"/>
     </LinearLayout>

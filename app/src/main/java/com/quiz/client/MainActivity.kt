@@ -3,6 +3,7 @@ package com.quiz.client
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import butterknife.ButterKnife
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity(),ICategoryView  {
         val quizApiService: QuizApiService = retrofit.create(QuizApiService::class.java)
 
         val rv = rv_Categories
-        rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        //rv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rv.layoutManager = GridLayoutManager(this,2)
         rv.setHasFixedSize(true)
         val categoryPresenter = CategoryPresenter(this,rv)
         categoryPresenter.onCategory(quizApiService)
