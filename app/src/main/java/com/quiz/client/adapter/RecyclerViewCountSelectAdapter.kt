@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
+import com.quiz.client.presenter.IHowManyPresenter
+import com.quiz.client.service.QuizApiService
 import java.util.*
 
-class RecyclerViewCountSelectAdapter(val treeSet: TreeSet<Int>):RecyclerView.Adapter<RecyclerViewCountSelectAdapter.ViewHolder>() {
+class RecyclerViewCountSelectAdapter(val treeSet: TreeSet<Int>,val iHowManyPresenter: IHowManyPresenter,val quizApiService: QuizApiService,val category:String
+):RecyclerView.Adapter<RecyclerViewCountSelectAdapter.ViewHolder>() {
 
 
     override fun getItemCount(): Int {
@@ -16,6 +19,10 @@ class RecyclerViewCountSelectAdapter(val treeSet: TreeSet<Int>):RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder?.value.setOnClickListener {
+            iHowManyPresenter.onHowMany(quizApiService,category,treeSet.elementAt(position))
+        }
 
 
     }
