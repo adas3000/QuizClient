@@ -54,7 +54,7 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         howManyPresenter = HowManyPresenter(this)
 
-        val rv = rv_questionCount_2
+        val rv = rv_questionCount
         rv.layoutManager = GridLayoutManager(this,2)
         rv.setHasFixedSize(true)
         rv.adapter = RecyclerViewCountSelectAdapter(questionCountSet,howManyPresenter,quizApiService,category)
@@ -62,11 +62,6 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
 
     }
-
-    fun onTextViewClicked(count: Int) {
-        howManyPresenter.onHowMany(quizApiService,category,count)
-    }
-
 
     override fun onHowManyResult(questionList: List<Question>) {
 

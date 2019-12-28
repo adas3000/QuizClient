@@ -20,6 +20,8 @@ class RecyclerViewCountSelectAdapter(val treeSet: TreeSet<Int>,val iHowManyPrese
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        holder?.value.setText(treeSet.elementAt(position).toString())
+
         holder?.value.setOnClickListener {
             iHowManyPresenter.onHowMany(quizApiService,category,treeSet.elementAt(position))
         }
