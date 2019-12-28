@@ -19,6 +19,7 @@ import com.quiz.client.view.IHowManyView
 import kotlinx.android.synthetic.main.activity_second.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 import javax.inject.Inject
 
 class SecondActivity : AppCompatActivity(), IHowManyView {
@@ -42,6 +43,7 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         category = intent.getStringExtra("category")
 
+        val questionCountSet:TreeSet<Int> = sortedSetOf(5,10,15,20,25,30)
 
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
         retrofit = appComponent.provideRetrofit()

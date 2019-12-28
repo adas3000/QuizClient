@@ -14,6 +14,7 @@
             android:layout_height="wrap_content" android:id="@+id/textView_question_count"/>
 
     <LinearLayout
+            android:id="@+id/rv_questionCount"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -62,6 +63,9 @@
 
 
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
 
 </LinearLayout>

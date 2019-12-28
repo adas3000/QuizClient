@@ -45,7 +45,7 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
     override fun setNextQuestion(correct: Boolean) {
 
-        var color:String = "#82DD55"
+        var color:String = "#82DD55" // success color
 
         if(correct){
             correctCount++
@@ -54,7 +54,7 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         else {
             Toasty.error(this,"Wrong",Toasty.LENGTH_SHORT).show()
-            color = "#E23636"
+            color = "#E23636" // error color
         }
         rv_top.findViewHolderForAdapterPosition(allQuestionCount)?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
             Color.parseColor(color))
