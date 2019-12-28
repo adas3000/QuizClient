@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
 import butterknife.ButterKnife
 import butterknife.OnClick
 import butterknife.OnTouch
+import com.quiz.client.adapter.RecyclerViewCountSelectAdapter
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.model.Question
@@ -52,20 +54,11 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
         howManyPresenter = HowManyPresenter(this)
 
+        val rv = rv_questionCount_2
+        rv.layoutManager = GridLayoutManager(this,2)
+        rv.setHasFixedSize(true)
+        rv.adapter = RecyclerViewCountSelectAdapter(questionCountSet,howManyPresenter,quizApiService,category)
 
-
-        fiveQuestion.setOnClickListener {
-            onTextViewClicked(5)
-        }
-        tenQuestion.setOnClickListener {
-            onTextViewClicked(10)
-        }
-        fifteenQuestion.setOnClickListener {
-            onTextViewClicked(15)
-        }
-        twentyQuestion.setOnClickListener {
-            onTextViewClicked(20)
-        }
 
 
     }
