@@ -49,6 +49,12 @@ class PlayActivity : AppCompatActivity(),ICategoryView  {
             putExtra("category",category)
         }
         startActivity(intent)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,PlayKindActivity::class.java))
+        finish()
     }
 
 

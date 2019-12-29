@@ -106,7 +106,7 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
             .setNegativeButton("No",{dialogInterface,i->
                 dialogInterface.cancel()
             })
-
+            .setCancelable(false)
         builder.show()
     }
 

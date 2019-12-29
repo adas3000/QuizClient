@@ -26,8 +26,6 @@ class FinishActivity : AppCompatActivity() {
             fromBegin()
         }
 
-
-
     }
 
     fun fromBegin(){
@@ -38,7 +36,9 @@ class FinishActivity : AppCompatActivity() {
 
 
     fun exitApp(){
-        this.finishAffinity()
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

@@ -76,4 +76,10 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
 
+    override fun onBackPressed() {
+        startActivity(Intent(this,PlayActivity::class.java))
+        finish()
+    }
+
+
 }

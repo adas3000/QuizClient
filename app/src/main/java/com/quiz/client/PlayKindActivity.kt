@@ -32,6 +32,7 @@ class PlayKindActivity : AppCompatActivity(), IPlayMenuView {
         }
 
         startActivity(Intent(this, PlayActivity::class.java))
+        finish()
     }
 
     override fun onPlayVsOpponent() {
@@ -44,6 +45,9 @@ class PlayKindActivity : AppCompatActivity(), IPlayMenuView {
     }
 
 
-
+    override fun onBackPressed() {
+        startActivity(Intent(this,MainActivity::class.java))
+        finish()
+    }
 
 }
