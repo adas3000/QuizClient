@@ -16,7 +16,7 @@
             android:textSize="36sp"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:layout_height="wrap_content" android:id="@+id/textView"
+            android:layout_height="wrap_content" android:id="@+id/PlayKindActivity_textView_Alone"
     />
     <TextView
             android:text="@string/play_kind_opponent_text"
@@ -24,6 +24,6 @@
             android:layout_width="match_parent"
             android:textSize="36sp"
             android:gravity="center"
-            android:layout_height="wrap_content" android:id="@+id/textView4" android:layout_weight="0.5"
+            android:layout_height="wrap_content" android:id="@+id/PlayKindActivity_textView_VsOpponent" android:layout_weight="0.5"
     />
 </LinearLayout>

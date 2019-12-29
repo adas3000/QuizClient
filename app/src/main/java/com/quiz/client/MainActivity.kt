@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() , IMMenuView {
     }
 
     override fun onOptions() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onPlay() {
