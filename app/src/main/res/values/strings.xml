@@ -5,4 +5,7 @@
     <string name="culture_category_text">Culture</string>
     <string name="gen_knowledge_category_text">General Knowledge</string>
     <string name="retrofit_url_text">http://192.168.0.102</string>
+    <string name="main_play_text">Play</string>
+    <string name="main_options_text">Options</string>
+    <string name="main_quit_text">Quit</string>
 </resources>
