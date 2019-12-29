@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        tools:context=".PlayKindActivity">
+
+    <TextView
+            android:text="@string/opponent_kind_queue_text"
+            android:background="@drawable/tv_frame"
+            android:layout_width="match_parent"
+            android:textSize="36sp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:layout_height="wrap_content" android:id="@+id/OpponentKindActivity_textView_queue"
+    />
+    <TextView
+            android:text="@string/opponent_kind_bluetooth_text"
+            android:background="@drawable/tv_frame"
+            android:layout_width="match_parent"
+            android:textSize="36sp"
+            android:gravity="center"
+            android:layout_height="wrap_content" android:id="@+id/OpponentKindActivity_textView_bluetooth" android:layout_weight="0.5"
+    />
+
+</LinearLayout>

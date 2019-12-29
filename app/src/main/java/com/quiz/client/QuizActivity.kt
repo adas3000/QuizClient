@@ -31,7 +31,6 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         questionList = QuestionListKeeper.questionListKeeper
 
-        //rv_top.layoutManager = LinearLayoutManager(this,RecyclerView.HORIZONTAL,false)
         rv_top.layoutManager = GridLayoutManager(this,15)
         rv_top.setHasFixedSize(true)
 

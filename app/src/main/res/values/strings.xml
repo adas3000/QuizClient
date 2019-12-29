@@ -10,4 +10,6 @@
     <string name="main_quit_text">Quit</string>
     <string name="play_kind_alone_text">Alone</string>
     <string name="play_kind_opponent_text">VS Opponent</string>
+    <string name="opponent_kind_queue_text">Queue</string>
+    <string name="opponent_kind_bluetooth_text">Bluetooth</string>
 </resources>
