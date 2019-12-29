@@ -8,4 +8,6 @@
     <string name="main_play_text">Play</string>
     <string name="main_options_text">Options</string>
     <string name="main_quit_text">Quit</string>
+    <string name="play_kind_alone_text">Alone</string>
+    <string name="play_kind_opponent_text">VS Opponent</string>
 </resources>

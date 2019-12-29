@@ -47,6 +47,6 @@ class MainActivity : AppCompatActivity() , IMMenuView {
     }
 
     override fun onPlay() {
-        startActivity(Intent(this,PlayActivity::class.java))
+        startActivity(Intent(this,PlayKindActivity::class.java))
     }
 }
