@@ -1,5 +1,9 @@
 package com.quiz.client.view
 
+import android.widget.TextView
+
 interface IMMenuView {
-    fun onOptionsChoose(which:Int)
+    fun onExit()
+    fun onOptions()
+    fun onPlay()
 }
