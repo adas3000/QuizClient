@@ -41,7 +41,8 @@ class PlayKindActivity : AppCompatActivity(), IPlayMenuView {
             Toasty.error(this,"No internet connection",Toasty.LENGTH_SHORT).show()
             return
         }
-
+        startActivity(Intent(this,OpponentKindActivity::class.java))
+        finish()
     }
 
 
