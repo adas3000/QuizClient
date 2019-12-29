@@ -26,7 +26,6 @@ class RecyclerViewCountSelectAdapter(val treeSet: TreeSet<Int>,val iHowManyPrese
             iHowManyPresenter.onHowMany(quizApiService,category,treeSet.elementAt(position))
         }
 
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

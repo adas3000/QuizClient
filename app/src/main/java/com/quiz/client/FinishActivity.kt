@@ -31,7 +31,7 @@ class FinishActivity : AppCompatActivity() {
     }
 
     fun fromBegin(){
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this,PlayActivity::class.java)
         startActivity(intent)
         finish()
     }

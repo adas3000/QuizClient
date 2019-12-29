@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(),ICategoryView  {
+class PlayActivity : AppCompatActivity(),ICategoryView  {
 
     @Inject
     lateinit var retrofit: Retrofit

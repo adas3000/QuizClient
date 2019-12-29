@@ -5,12 +5,12 @@
         android:orientation="vertical"
         android:layout_height="match_parent"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.quiz.client.MainActivity"
+        tools:context="com.quiz.client.PlayActivity"
 >
 
     <TextView
             android:id="@+id/textView_selectCategoryText"
-            android:text="Select category"
+            android:text="Category"
             android:background="@drawable/tv_frame"
             android:gravity="center"
             android:textSize="28sp"
