@@ -50,8 +50,7 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
         if (requestCode == enableBtnIntentRequestCode) {
 
             if (resultCode == Activity.RESULT_OK){
-                bluetoothEnabled = true
-                //makeBluetooth conn
+                makeBluetoothConn()
             }
 
         }
@@ -68,5 +67,14 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
 
     override fun onError(msg: String) {
         Toasty.error(this,msg,Toasty.LENGTH_SHORT).show()
+    }
+
+    override fun askForBluetooth(requestCode: Int) {
+        val enableBtnIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+        startActivityForResult(enableBtnIntent, requestCode)
+    }
+
+    override fun makeBluetoothConn() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
