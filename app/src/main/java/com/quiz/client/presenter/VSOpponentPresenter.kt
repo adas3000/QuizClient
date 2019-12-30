@@ -1,10 +1,11 @@
 package com.quiz.client.presenter
 
 import android.bluetooth.BluetoothAdapter
-import android.content.Intent
-import androidx.core.app.ActivityCompat.startActivityForResult
+import android.content.Context
 import com.quiz.client.model.VSOpponentModel.IVSOpponentBluetooth
+import com.quiz.client.model.VSOpponentModel.IVSOpponentQueue
 import com.quiz.client.model.VSOpponentModel.VSOpponentBluetooth
+import com.quiz.client.model.VSOpponentModel.VSOpponentQueue
 import com.quiz.client.view.IOpponentKindView
 
 class VSOpponentPresenter : IVSOpponentPresenter {
@@ -30,7 +31,13 @@ class VSOpponentPresenter : IVSOpponentPresenter {
             iOpponentKindView.makeBluetoothConn()
     }
 
-    override fun onQueue() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onQueue(context: Context) {
+
+        val queueConn:IVSOpponentQueue = VSOpponentQueue()
+        if(!queueConn.hasInternetConn(context)){
+            iOpponentKindView.onError("No internet connection")
+            return
+        }
+        iOpponentKindView.makeQueueConn()
     }
 }

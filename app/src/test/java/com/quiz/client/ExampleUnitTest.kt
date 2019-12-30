@@ -1,5 +1,6 @@
 package com.quiz.client
 
+import com.google.firebase.iid.FirebaseInstanceId
 import org.junit.Test
 
 import org.junit.Assert.*

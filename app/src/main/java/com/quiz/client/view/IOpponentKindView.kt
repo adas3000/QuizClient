@@ -5,4 +5,5 @@ interface IOpponentKindView {
     fun onError(msg:String)
     fun askForBluetooth(requestCode: Int)
     fun makeBluetoothConn()
+    fun makeQueueConn()
 }

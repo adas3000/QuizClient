@@ -11,12 +11,12 @@ import com.quiz.client.view.IOpponentKindView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_opponent_kind.*
 
-class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
+class OpponentKindActivity : AppCompatActivity(), IOpponentKindView {
 
 
     val enableBtnIntentRequestCode = 1
 
-    lateinit var vsOpponentPresenter:IVSOpponentPresenter
+    lateinit var vsOpponentPresenter: IVSOpponentPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +31,7 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
             vsOpponentPresenter.onQueue()
         }
 
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -38,7 +39,7 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
 
         if (requestCode == enableBtnIntentRequestCode) {
 
-            if (resultCode == Activity.RESULT_OK){
+            if (resultCode == Activity.RESULT_OK) {
                 makeBluetoothConn()
             }
 
@@ -51,11 +52,11 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
     }
 
     override fun onResult(msg: String) {
-        Toasty.normal(this,msg,Toasty.LENGTH_SHORT).show()
+        Toasty.normal(this, msg, Toasty.LENGTH_SHORT).show()
     }
 
     override fun onError(msg: String) {
-        Toasty.error(this,msg,Toasty.LENGTH_SHORT).show()
+        Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
     }
 
     override fun askForBluetooth(requestCode: Int) {
@@ -64,6 +65,11 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
     }
 
     override fun makeBluetoothConn() {
+
+    }
+
+    override fun makeQueueConn() {
+
 
     }
 }
