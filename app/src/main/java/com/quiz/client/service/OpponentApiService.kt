@@ -1,5 +1,6 @@
 package com.quiz.client.service
 
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.POST
@@ -9,8 +10,8 @@ import retrofit2.http.Path
 interface OpponentApiService {
 
     @POST("/api/queue")
-    fun goToQueue(@Body serial:String);
+    fun goToQueue(@Body serial:String): Call<List<String>>
 
     @DELETE("/api/queue/{serial}")
-    fun cancelQueue(@Path("serial")serial:String)
+    fun cancelQueue(@Path("serial")serial:String):Call<List<String>>
 }

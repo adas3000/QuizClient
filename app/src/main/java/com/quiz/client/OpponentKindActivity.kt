@@ -69,7 +69,7 @@ class OpponentKindActivity : AppCompatActivity(), IOpponentKindView {
     }
 
     override fun makeQueueConn() {
-
-
+        startActivity(Intent(this,QueueLoadActivity::class.java))
+        finish()
     }
 }
