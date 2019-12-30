@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
+import com.quiz.client.presenter.IQueueLoadPresenter
+import com.quiz.client.presenter.QueueLoadPresenter
 import com.quiz.client.service.OpponentApiService
 import com.quiz.client.util.*
 import com.quiz.client.view.IQueueLoadView
@@ -29,8 +31,8 @@ class QueueLoadActivity : AppCompatActivity(),IQueueLoadView {
         opponentApiService = retrofit.create(OpponentApiService::class.java)
 
 
-
-
+        val queueLoadPresenter:IQueueLoadPresenter = QueueLoadPresenter(this)
+        queueLoadPresenter.onGoToQueue(opponentApiService)
     }
 
     override fun onBackPressed() {
@@ -41,6 +43,8 @@ class QueueLoadActivity : AppCompatActivity(),IQueueLoadView {
 
     override fun onError(msg: String) {
         Toasty.error(this,msg,Toasty.LENGTH_SHORT).show()
+        startActivity(Intent(this,OpponentKindActivity::class.java))
+        finish()
     }
 
     override fun onSuccess() {
