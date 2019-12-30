@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.google.firebase.iid.FirebaseInstanceId
 
 fun hasInternetConnection(context: Context): Boolean {
 
@@ -39,4 +40,8 @@ fun hasInternetConnection(context: Context): Boolean {
     }
 
     return result
+}
+
+fun getApplicationToken(): String {
+    return FirebaseInstanceId.getInstance().id
 }

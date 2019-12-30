@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    
     <uses-permission
             android:name="android.permission.INTERNET"
             android:required="true"/>
@@ -21,6 +20,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".QueueLoadActivity">
+        </activity>
         <activity android:name=".OpponentKindActivity">
         </activity>
         <activity android:name=".PlayKindActivity">

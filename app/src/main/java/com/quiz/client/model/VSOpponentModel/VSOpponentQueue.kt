@@ -3,6 +3,7 @@ package com.quiz.client.model.VSOpponentModel
 import android.content.Context
 import com.google.firebase.iid.FirebaseInstanceId
 import com.quiz.client.util.hasInternetConnection
+import com.quiz.client.util.getApplicationToken
 
 class VSOpponentQueue : IVSOpponentQueue {
 
@@ -11,7 +12,7 @@ class VSOpponentQueue : IVSOpponentQueue {
     }
 
     override fun getToken(): String {
-        return FirebaseInstanceId.getInstance().id
+        return getApplicationToken()
     }
 
 
