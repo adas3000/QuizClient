@@ -4,4 +4,5 @@ import android.content.Context
 
 interface IVSOpponentQueue {
     fun hasInternetConn(context:Context):Boolean
+    fun getToken(context: Context):String
 }

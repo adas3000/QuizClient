@@ -28,7 +28,7 @@ class OpponentKindActivity : AppCompatActivity(), IOpponentKindView {
             vsOpponentPresenter.onBluetooth(enableBtnIntentRequestCode, BluetoothAdapter.getDefaultAdapter())
         }
         OpponentKindActivity_textView_queue.setOnClickListener {
-            vsOpponentPresenter.onQueue()
+            vsOpponentPresenter.onQueue(this)
         }
 
 
