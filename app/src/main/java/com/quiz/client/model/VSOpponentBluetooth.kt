@@ -1,8 +1,17 @@
 package com.quiz.client.model
 
-class VSOpponentBluetooth : VSOpponent {
+import android.bluetooth.BluetoothAdapter
+import com.quiz.client.view.IOpponentKindView
 
-    override fun doPlay() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class VSOpponentBluetooth  {
+
+    val enableBtnIntentRequestCode:Int
+    val bluetoothAdapter:BluetoothAdapter?
+
+    constructor(enableBtnIntentRequestCode:Int,bluetoothAdapter:BluetoothAdapter?){
+        this.enableBtnIntentRequestCode = enableBtnIntentRequestCode
+        this.bluetoothAdapter = bluetoothAdapter
     }
+
+
 }

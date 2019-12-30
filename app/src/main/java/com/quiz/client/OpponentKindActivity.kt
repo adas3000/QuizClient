@@ -5,10 +5,11 @@ import android.bluetooth.BluetoothAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.quiz.client.view.IOpponentKindView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_opponent_kind.*
 
-class OpponentKindActivity : AppCompatActivity() {
+class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
 
 
     val enableBtnIntentRequestCode = 1
@@ -22,7 +23,6 @@ class OpponentKindActivity : AppCompatActivity() {
         val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
         if(bluetoothAdapter!=null)
             bluetoothEnabled = bluetoothAdapter?.isEnabled
-
 
         OpponentKindActivity_textView_bluetooth.setOnClickListener {
 
@@ -58,10 +58,15 @@ class OpponentKindActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-
         startActivity(Intent(this, PlayKindActivity::class.java))
         finish()
-
     }
 
+    override fun onResult(msg: String) {
+        Toasty.normal(this,msg,Toasty.LENGTH_SHORT).show()
+    }
+
+    override fun onError(msg: String) {
+        Toasty.error(this,msg,Toasty.LENGTH_SHORT).show()
+    }
 }
