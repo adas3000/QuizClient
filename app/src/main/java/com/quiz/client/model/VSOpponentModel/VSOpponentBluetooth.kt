@@ -1,9 +1,8 @@
-package com.quiz.client.model
+package com.quiz.client.model.VSOpponentModel
 
 import android.bluetooth.BluetoothAdapter
-import com.quiz.client.view.IOpponentKindView
 
-class VSOpponentBluetooth  {
+class VSOpponentBluetooth : IVSOpponentBluetooth  {
 
     val enableBtnIntentRequestCode:Int
     val bluetoothAdapter:BluetoothAdapter?
@@ -13,5 +12,12 @@ class VSOpponentBluetooth  {
         this.bluetoothAdapter = bluetoothAdapter
     }
 
+    override fun deviceHasBluetooth(): Boolean {
+        return bluetoothAdapter==null
+    }
+
+    override fun getEnableBtnIntentRequestCodee(): Int {
+        return enableBtnIntentRequestCode
+    }
 
 }
