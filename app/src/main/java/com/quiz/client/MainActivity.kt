@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.FirebaseApp
 import com.quiz.client.view.IMMenuView
 import kotlinx.android.synthetic.main.activity_main2.*
 
@@ -13,6 +14,8 @@ class MainActivity : AppCompatActivity() , IMMenuView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+        FirebaseApp.initializeApp(this)
 
 
         MainActivity_textView_Play.setOnClickListener {
