@@ -12,4 +12,5 @@
     <string name="play_kind_opponent_text">VS Opponent</string>
     <string name="opponent_kind_queue_text">Queue</string>
     <string name="opponent_kind_bluetooth_text">Bluetooth</string>
+    <string name="queue_load_text">Searching...</string>
 </resources>
