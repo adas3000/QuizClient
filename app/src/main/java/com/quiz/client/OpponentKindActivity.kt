@@ -27,6 +27,9 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
         OpponentKindActivity_textView_bluetooth.setOnClickListener {
             vsOpponentPresenter.onBluetooth(enableBtnIntentRequestCode, BluetoothAdapter.getDefaultAdapter())
         }
+        OpponentKindActivity_textView_queue.setOnClickListener {
+            vsOpponentPresenter.onQueue()
+        }
 
     }
 
@@ -61,6 +64,6 @@ class OpponentKindActivity : AppCompatActivity(),IOpponentKindView {
     }
 
     override fun makeBluetoothConn() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 }

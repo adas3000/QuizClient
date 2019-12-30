@@ -12,7 +12,7 @@ class VSOpponentBluetooth : IVSOpponentBluetooth  {
         this.bluetoothAdapter = bluetoothAdapter
     }
 
-    override fun deviceHasBluetooth(): Boolean {
+    override fun deviceHasNoBluetooth(): Boolean {
         return bluetoothAdapter==null
     }
 

@@ -19,14 +19,15 @@ class VSOpponentPresenter : IVSOpponentPresenter {
 
         val bluetooth:IVSOpponentBluetooth = VSOpponentBluetooth(enableBtnIntentRequestCode,bluetoothAdapter)
 
-        if(!bluetooth.deviceHasBluetooth()){
+        if(bluetooth.deviceHasNoBluetooth()){
             iOpponentKindView.onError("Device has no bluetooth connection")
             return
         }
 
-        if(bluetoothAdapter?.isEnabled==false){
-
-        }
+        if(bluetoothAdapter?.isEnabled==false)
+            iOpponentKindView.askForBluetooth(enableBtnIntentRequestCode)
+        else
+            iOpponentKindView.makeBluetoothConn()
     }
 
     override fun onQueue() {
