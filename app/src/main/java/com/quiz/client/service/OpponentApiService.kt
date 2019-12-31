@@ -9,8 +9,8 @@ import retrofit2.http.Path
 
 interface OpponentApiService {
 
-    @POST("/api/queue")
-    fun goToQueue(@Body serial:String): Call<List<String>>
+    @POST("/api/queue/{serial}")
+    fun goToQueue(@Path("serial") serial:String): Call<List<String>>
 
     @DELETE("/api/queue/{serial}")
     fun cancelQueue(@Path("serial")serial:String):Call<List<String>>

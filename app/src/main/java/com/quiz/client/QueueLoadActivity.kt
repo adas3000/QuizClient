@@ -14,12 +14,14 @@ import es.dmoral.toasty.Toasty
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class QueueLoadActivity : AppCompatActivity(),IQueueLoadView {
+class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
 
     @Inject
     lateinit var retrofit: Retrofit
 
     lateinit var opponentApiService: OpponentApiService
+
+    lateinit var queueLoadPresenter: IQueueLoadPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,20 +32,19 @@ class QueueLoadActivity : AppCompatActivity(),IQueueLoadView {
 
         opponentApiService = retrofit.create(OpponentApiService::class.java)
 
-
-        val queueLoadPresenter:IQueueLoadPresenter = QueueLoadPresenter(this)
-        queueLoadPresenter.onGoToQueue(opponentApiService)
+        queueLoadPresenter = QueueLoadPresenter(this,opponentApiService)
+        queueLoadPresenter.onGoToQueue()
     }
 
     override fun onBackPressed() {
-        opponentApiService.cancelQueue(getApplicationToken())
+        queueLoadPresenter.onDropFromQueue()
         startActivity(Intent(this, OpponentKindActivity::class.java))
         finish()
     }
 
     override fun onError(msg: String) {
-        Toasty.error(this,msg,Toasty.LENGTH_SHORT).show()
-        startActivity(Intent(this,OpponentKindActivity::class.java))
+        Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
+        startActivity(Intent(this, OpponentKindActivity::class.java))
         finish()
     }
 

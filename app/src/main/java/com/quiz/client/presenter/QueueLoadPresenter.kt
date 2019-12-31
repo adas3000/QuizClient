@@ -10,20 +10,22 @@ import retrofit2.Response
 class QueueLoadPresenter : IQueueLoadPresenter {
 
     val iQueueLoadView:IQueueLoadView
+    val opponentApiService: OpponentApiService
 
-    constructor(iQueueLoadView:IQueueLoadView){
+    constructor(iQueueLoadView:IQueueLoadView,opponentApiService: OpponentApiService){
         this.iQueueLoadView = iQueueLoadView
+        this.opponentApiService = opponentApiService
     }
 
 
-    override fun onSearchOpponent(opponentApiService: OpponentApiService) {
+    override fun onSearchOpponent() {
 
 
 
 
     }
 
-    override fun onGoToQueue(opponentApiService: OpponentApiService) {
+    override fun onGoToQueue() {
 
         val call = opponentApiService.goToQueue(getApplicationToken())
 
@@ -36,16 +38,14 @@ class QueueLoadPresenter : IQueueLoadPresenter {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if(response.isSuccessful) {
                     println("success")
-                    onSearchOpponent(opponentApiService)
+                    onSearchOpponent()
                 }
                 else{
-                    println("response failure: CODE:"+response.code()+",MSG:"+response.body())
-                    println("response body:"+response.body())
+                    println("response failure")
 
                     if(response.code()==400){
-                        onDropFromQueue(opponentApiService)
+                        onDropFromQueue()
                     }
-
                     iQueueLoadView.onError("Cannot connect")
                 }
             }
@@ -53,8 +53,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     }
 
-    override fun onDropFromQueue(opponentApiService: OpponentApiService) {
-
+    override fun onDropFromQueue() {
         val call = opponentApiService.cancelQueue(getApplicationToken())
 
         call.enqueue(object:Callback<List<String>>{
@@ -65,11 +64,10 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if(response.isSuccessful){
-                    println("succesfull")
+                    println("successful")
                 }
                 else{
-                    println("response failure: CODE:"+response.code()+",MSG:"+response.body())
-                    println("response body:"+response.body())
+                    println("response failure")
                 }
             }
         })
