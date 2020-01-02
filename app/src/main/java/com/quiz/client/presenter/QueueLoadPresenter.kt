@@ -35,7 +35,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
                 if(response.isSuccessful){
                     println("success,questionList:"+response.body()!![0].value)
                     QuestionListKeeper.questionListKeeper = response.body()!!
-                    iQueueLoadView.onSuccess("")
+                    iQueueLoadView.onSuccess(uuid)
                 }
                 else{
                     println("response failure,MSG:"+response.message()+",CODE:"+response.code())

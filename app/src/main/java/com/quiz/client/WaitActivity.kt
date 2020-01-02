@@ -9,9 +9,14 @@ class WaitActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wait)
 
+        val game_code:String? = this.intent.getStringExtra("game_code")
 
-
-
+        if(game_code==null){
+            throw NullPointerException("game_code is null")
+        }
 
     }
+    
+
+
 }
