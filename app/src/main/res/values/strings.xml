@@ -13,4 +13,5 @@
     <string name="opponent_kind_queue_text">Queue</string>
     <string name="opponent_kind_bluetooth_text">Bluetooth</string>
     <string name="queue_load_text">Searching...</string>
+    <string name="wait_load_text">Waiting for other player/s...</string>
 </resources>
