@@ -33,7 +33,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
             override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
 
                 if(response.isSuccessful){
-                    println("success,questionList:"+response.body()!![0].value)
+                    println("success")
                     QuestionListKeeper.questionListKeeper = response.body()!!
                     iQueueLoadView.onSuccess(uuid)
                 }
@@ -60,11 +60,8 @@ class QueueLoadPresenter : IQueueLoadPresenter {
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.code()==100){
-                    println("Try again")
-                }
-                else if(response.isSuccessful){
-                    println("success,body:"+response.body()!![0])
+                if(response.isSuccessful){
+                    println("success")
                     onFindQuestionList(response.body()!![0])
                 }
                 else{
@@ -95,7 +92,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
                 }
                 else{
                     println("response failure")
-                    iQueueLoadView.onError("Cannot connect")
+                    iQueueLoadView.onError("Try again")
                 }
             }
         })

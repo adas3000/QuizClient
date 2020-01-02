@@ -49,4 +49,10 @@ class WaitActivity : AppCompatActivity() , IWaitView {
     override fun onContinue(code: String,iWaitPresenter: IWaitPresenter) {
         iWaitPresenter.doCheckAllConnected(code)
     }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,OpponentKindActivity::class.java))
+        finish()
+    }
+
 }

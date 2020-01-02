@@ -11,26 +11,29 @@ class WaitPresenter : IWaitPresenter {
 
     val iWaitView:IWaitView
     val gameApiService:GameApiService
+    val iWaitPresenter :IWaitPresenter
 
     constructor(iWaitView:IWaitView,gameApiService:GameApiService){
         this.iWaitView = iWaitView
         this.gameApiService = gameApiService
+        iWaitPresenter = this
     }
 
     override fun doCheckAllConnected(uuid: String) {
 
         val call = gameApiService.onAllPlayersConnected(uuid)
-        val iWaitPresenter :IWaitPresenter= this
+
 
         call.enqueue(object: Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("docheckAllConnected,failure")
+                println("docheckAllConnected,failure:"+t.message)
                 iWaitView.onError("Internet Error")
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
 
-                if(response.code()==100){
+                if(response.code()==302){
+                    println("continue")
                     iWaitView.onContinue(uuid,iWaitPresenter)
                 }
                 else if(response.isSuccessful){
