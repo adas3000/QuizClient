@@ -1,7 +1,8 @@
 package com.quiz.client
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.service.GameApiService
@@ -30,8 +31,7 @@ class MultiQuizActivity : AppCompatActivity() {
 
         val gameApiService: GameApiService = retrofit.create(GameApiService::class.java)
 
-
-
+        setContentView(R.layout.activity_quiz)
     }
 
 
