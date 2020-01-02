@@ -18,10 +18,12 @@ import java.lang.IndexOutOfBoundsException
 class QuestionFragment : Fragment(),IChoiceView {
 
     lateinit var questionList:List<Question>
+    val points:Int = R.string.points_for_good_question_text
+    var player_points_sum = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?  {
         questionList = QuestionListKeeper.questionListKeeper
-
+        setQuestionView(0)
         return inflater.inflate(R.layout.activity_quiz,container,false)
     }
 
@@ -42,6 +44,11 @@ class QuestionFragment : Fragment(),IChoiceView {
     }
 
     override fun setNextQuestion(correct: Boolean) {
+
+
+        if(correct){
+
+        }
 
     }
 }

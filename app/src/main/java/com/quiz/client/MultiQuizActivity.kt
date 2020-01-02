@@ -18,7 +18,7 @@ class MultiQuizActivity : AppCompatActivity() , IMultiQuizView {
     @Inject
     lateinit var retrofit:Retrofit
 
-    val points:Int = R.string.points_for_good_question_text
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
