@@ -1,5 +1,7 @@
 package com.quiz.client.view
 
-interface IMultiQuizView {
+import java.io.Serializable
+
+interface IMultiQuizView : Serializable{
     fun onNextQuestion(correct:Boolean,time_remaining:Int)
 }

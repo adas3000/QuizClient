@@ -65,7 +65,6 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
 
         if(allQuestionCount==questionList.size){
 
-
             val intent = Intent(this,FinishActivity::class.java).apply{
                 putExtra("score",correctCount.toString())
                 putExtra("all",allQuestionCount.toString())

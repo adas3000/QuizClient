@@ -2,25 +2,28 @@ package com.quiz.client.task
 
 import android.os.AsyncTask
 import android.widget.TextView
+import com.quiz.client.view.IMQuestionView
 import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
 
-class CountDownTask : AsyncTask<Int,Int,Boolean> {
+class CountDownTask : AsyncTask<Int, Int, Boolean> {
 
-    val textViewToUpdate:TextView
+    val textViewToUpdate: TextView
+    val imQuestionView: IMQuestionView
 
-    constructor(textViewToUpdate:TextView){
-            this.textViewToUpdate = textViewToUpdate
+    constructor(textViewToUpdate: TextView, imQuestionView: IMQuestionView) {
+        this.textViewToUpdate = textViewToUpdate
+        this.imQuestionView = imQuestionView
     }
 
     override fun doInBackground(vararg p0: Int?): Boolean {
 
         var count = p0[0]
-        if(count==null){
+        if (count == null) {
             throw NullPointerException("count is null")
         }
 
-        while(count>0){
+        while (count > 0) {
             TimeUnit.SECONDS.sleep(1)
             count--
             publishProgress(count)
@@ -37,7 +40,7 @@ class CountDownTask : AsyncTask<Int,Int,Boolean> {
     }
 
     override fun onPostExecute(result: Boolean?) {
-        
+        imQuestionView.onCountDownFinish()
     }
 
 }
