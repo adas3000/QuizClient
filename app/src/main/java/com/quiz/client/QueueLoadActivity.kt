@@ -19,7 +19,6 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
     @Inject
     lateinit var retrofit: Retrofit
 
-    lateinit var opponentApiService: OpponentApiService
 
     lateinit var queueLoadPresenter: IQueueLoadPresenter
 
@@ -30,7 +29,7 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
         retrofit = appComponent.provideRetrofit()
 
-        opponentApiService = retrofit.create(OpponentApiService::class.java)
+        val opponentApiService:OpponentApiService = retrofit.create(OpponentApiService::class.java)
 
         queueLoadPresenter = QueueLoadPresenter(this,opponentApiService)
         queueLoadPresenter.onGoToQueue()
@@ -43,12 +42,17 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
     }
 
     override fun onError(msg: String) {
+        queueLoadPresenter.onDropFromQueue()
         Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
         startActivity(Intent(this, OpponentKindActivity::class.java))
         finish()
     }
 
-    override fun onSuccess() {
-        //game
+    override fun onSuccess(code:String) {
+
+        val intent = Intent(this,QuizActivity::class.java)
+        startActivity(intent)
+        finish()
+
     }
 }

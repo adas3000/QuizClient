@@ -20,7 +20,29 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     override fun onSearchOpponent() {
 
+        val call = opponentApiService.getOpponent(getApplicationToken())
 
+        call.enqueue(object:Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("failure:"+t.message)
+                iQueueLoadView.onError("Cannot connect")
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if(response.code()==100){
+                    println("Try again")
+                }
+                else if(response.isSuccessful){
+                    println("success")
+                    println("Response body:"+response.body()!!.toList())
+                }
+                else{
+                    println("response failure")
+                    println("body:"+response.body()+",code:"+response.code())
+                    iQueueLoadView.onError("Cannot connect")
+                }
+            }
+        })
 
 
     }
@@ -42,10 +64,6 @@ class QueueLoadPresenter : IQueueLoadPresenter {
                 }
                 else{
                     println("response failure")
-
-                    if(response.code()==400){
-                        onDropFromQueue()
-                    }
                     iQueueLoadView.onError("Cannot connect")
                 }
             }
