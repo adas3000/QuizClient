@@ -77,7 +77,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
         call.enqueue(object:Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 println("failure:"+t.message)
-                iQueueLoadView.onError("Cannot connect")
+                iQueueLoadView.onCannotDropFromQueue()
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {

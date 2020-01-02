@@ -48,6 +48,11 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
         finish()
     }
 
+    override fun onCannotDropFromQueue() {
+        startActivity(Intent(this, OpponentKindActivity::class.java))
+        finish()
+    }
+
     override fun onSuccess(code:String) {
 
         val intent = Intent(this,QuizActivity::class.java)
