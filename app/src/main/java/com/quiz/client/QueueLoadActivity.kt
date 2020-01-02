@@ -54,12 +54,10 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
     }
 
     override fun onSuccess(code:String) {
-
-        val intent = Intent(this,QuizActivity::class.java).apply {
-            putExtra("GAME",code)
+        val intent = Intent(this,WaitActivity::class.java).apply {
+            putExtra("game_code",code)
         }
         startActivity(intent)
         finish()
-
     }
 }
