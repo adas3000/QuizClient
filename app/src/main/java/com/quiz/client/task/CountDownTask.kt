@@ -10,6 +10,7 @@ class CountDownTask : AsyncTask<Int, Int, Boolean> {
 
     val textViewToUpdate: TextView
     val imQuestionView: IMQuestionView
+    var timeRemaining:Int = 0
 
     constructor(textViewToUpdate: TextView, imQuestionView: IMQuestionView) {
         this.textViewToUpdate = textViewToUpdate

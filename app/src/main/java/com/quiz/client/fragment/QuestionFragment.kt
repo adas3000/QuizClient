@@ -14,6 +14,7 @@ import com.quiz.client.FinishActivity
 import com.quiz.client.R
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
 import com.quiz.client.model.Question
+import com.quiz.client.task.CountDownTask
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IChoiceView
 import com.quiz.client.view.IMQuestionView
@@ -28,6 +29,10 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     lateinit var questionList:List<Question>
 
+    lateinit var iMultiQuizView:IMultiQuizView
+    var questionIndex:Int = -1
+    var timeRemaining = 0
+
     companion object {
         @JvmStatic
         fun newInstance(questionIndex:Int,iMultiQuizView: IMultiQuizView) = QuestionFragment().apply {
@@ -35,14 +40,20 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
                 putInt("questionIndex",questionIndex)
                 putSerializable(MQUIZ_DESCRIBABLE_KEY,iMultiQuizView)
             }
-        }.apply {  }
+        }.apply {
+            this.iMultiQuizView = iMultiQuizView
+            this.questionIndex = questionIndex
+        }
     }
 
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?  {
         questionList = QuestionListKeeper.questionListKeeper
-        setQuestionView(0)
+        setQuestionView(questionIndex)
+
+        CountDownTask(textView_question_time_to_answer,this).execute(15)
+
         return inflater.inflate(R.layout.activity_quiz,container,false)
     }
 
@@ -62,9 +73,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
     }
 
     override fun setNextQuestion(correct: Boolean) {
-
-
-
+        iMultiQuizView.onNextQuestion(correct,timeRemaining)
     }
 
 
