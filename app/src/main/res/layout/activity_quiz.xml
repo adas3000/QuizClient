@@ -36,9 +36,8 @@
             android:layout_height="wrap_content" android:id="@+id/textView_question_count"/>
     <TextView
             android:text="15"
-            android:visible="invisible"
             android:textSize="25sp"
-            android:gravity="right"
+            android:gravity="end"
             android:textColor="@color/colorAqua"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView_question_time_to_answer"/>

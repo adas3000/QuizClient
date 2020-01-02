@@ -38,10 +38,7 @@ class VSOpponentPresenter : IVSOpponentPresenter {
             iOpponentKindView.onError("No internet connection")
             return
         }
-<<<<<<< HEAD
         println(queueConn.getToken())
-=======
->>>>>>> queueFeature
         iOpponentKindView.makeQueueConn()
     }
 }
