@@ -1,6 +1,8 @@
 package com.quiz.client.presenter
 
+import com.quiz.client.model.Question
 import com.quiz.client.service.OpponentApiService
+import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IQueueLoadView
 import retrofit2.Call
@@ -17,6 +19,35 @@ class QueueLoadPresenter : IQueueLoadPresenter {
         this.opponentApiService = opponentApiService
     }
 
+    override fun onFindQuestionList(uuid:String) {
+
+        val call = opponentApiService.findQuestionList(uuid)
+
+        call.enqueue(object:Callback<List<Question>>{
+
+            override fun onFailure(call: Call<List<Question>>, t: Throwable) {
+                println("failure:"+t.message)
+                iQueueLoadView.onError("Cannot connect")
+            }
+
+            override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
+
+                if(response.isSuccessful){
+                    println("success,questionList:"+response.body()!![0].value)
+                    QuestionListKeeper.questionListKeeper = response.body()!!
+                    iQueueLoadView.onSuccess("")
+                }
+                else{
+                    println("response failure,MSG:"+response.message()+",CODE:"+response.code())
+                    iQueueLoadView.onError("Question List error")
+                }
+
+            }
+
+        })
+
+
+    }
 
     override fun onSearchOpponent() {
 
@@ -33,8 +64,8 @@ class QueueLoadPresenter : IQueueLoadPresenter {
                     println("Try again")
                 }
                 else if(response.isSuccessful){
-                    println("success")
-                    println("Response body:"+response.body()!!.toList())
+                    println("success,body:"+response.body()!![0])
+                    onFindQuestionList(response.body()!![0])
                 }
                 else{
                     println("response failure")
