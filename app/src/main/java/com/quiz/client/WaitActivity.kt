@@ -38,7 +38,9 @@ class WaitActivity : AppCompatActivity() , IWaitView {
     }
 
     override fun onSuccess(code: String) {
-        val intent = Intent(this,QuizActivity::class.java)
+        val intent = Intent(this,QuizActivity::class.java).apply {
+            putExtra("game_code",code)
+        }
         startActivity(intent)
     }
 
