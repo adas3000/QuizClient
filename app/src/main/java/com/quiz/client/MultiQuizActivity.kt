@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
+import com.quiz.client.fragment.StatsFragment
 import com.quiz.client.service.GameApiService
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IMultiQuizView
@@ -28,6 +29,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizView {
 
     var allQuestionCount:Int=0
     var correctCount:Int = 0
+    val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +47,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizView {
 
         gameApiService = retrofit.create(GameApiService::class.java)
 
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0,this))
         ft.commit()
     }
@@ -74,9 +75,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizView {
         allQuestionCount++
 
         textView_question_count.setText(correctCount.toString()+"/"+allQuestionCount.toString())
-
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0,this))
+        //TODO make put to send score and after that send receive to get others players score then do statsfragment(y)
+        ft.replace(R.id.multi_quiz_placeholder, StatsFragment())
         ft.commit()
 
     }
