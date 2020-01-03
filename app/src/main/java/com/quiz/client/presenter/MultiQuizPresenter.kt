@@ -85,7 +85,7 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                     iMultiQuizView.oncheckAllDevicesAnsweredSuccess()
                 }
                 else if(response.isSuccessful && response.body()==false){
-                    //wait
+                    iMultiQuizView.onWaitForOthers()
                 }
                 else{
                     println("onCheckAllDevicesAnswered response error:|CODE="+response.code()+"|MSG:"+response.body()+"|")

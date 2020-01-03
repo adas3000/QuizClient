@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_quiz.*
 import kotlinx.android.synthetic.main.fstats_layout.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView {
@@ -128,4 +129,13 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     override fun onScoreDeviceUpdateSuccess() {
         multiQuizPresenter.onUpdateDeviceFinishedAnswering(game_code, getApplicationToken())
     }
+
+    override fun onWaitForOthers() {
+        //todo do waiting screen
+        Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
+        TimeUnit.SECONDS.sleep(1)
+        multiQuizPresenter.onCheckAllDevicesAnswered(game_code)
+
+    }
+
 }
