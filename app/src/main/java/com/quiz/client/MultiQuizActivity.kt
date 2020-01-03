@@ -1,26 +1,23 @@
 package com.quiz.client
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
 import com.quiz.client.fragment.StatsFragment
 import com.quiz.client.service.GameApiService
-import com.quiz.client.util.QuestionListKeeper
-import com.quiz.client.view.IMultiQuizView
+import com.quiz.client.view.IMultiQuizParent
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_quiz.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
 import javax.inject.Inject
 
-class MultiQuizActivity : AppCompatActivity(), IMultiQuizView {
+class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent {
 
     @Inject
     lateinit var retrofit: Retrofit

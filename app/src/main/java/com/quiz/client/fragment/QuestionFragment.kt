@@ -1,17 +1,12 @@
 package com.quiz.client.fragment
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.quiz.client.FinishActivity
-import com.quiz.client.MainActivity
 import com.quiz.client.QuizActivity
 import com.quiz.client.R
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
@@ -20,8 +15,7 @@ import com.quiz.client.task.CountDownTask
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IChoiceView
 import com.quiz.client.view.IMQuestionView
-import com.quiz.client.view.IMultiQuizView
-import es.dmoral.toasty.Toasty
+import com.quiz.client.view.IMultiQuizParent
 import kotlinx.android.synthetic.main.activity_quiz.*
 import java.lang.IndexOutOfBoundsException
 
@@ -31,7 +25,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     lateinit var questionList:List<Question>
 
-    lateinit var iMultiQuizView:IMultiQuizView
+    lateinit var iMultiQuizParent:IMultiQuizParent
 
     lateinit var countDownTask: CountDownTask
 
@@ -39,13 +33,13 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     companion object {
         @JvmStatic
-        fun newInstance(questionIndex:Int,iMultiQuizView: IMultiQuizView) = QuestionFragment().apply {
+        fun newInstance(questionIndex:Int, iMultiQuizParent: IMultiQuizParent) = QuestionFragment().apply {
             arguments = Bundle().apply {
                 putInt("questionIndex",questionIndex)
-                putSerializable(MQUIZ_DESCRIBABLE_KEY,iMultiQuizView)
+                putSerializable(MQUIZ_DESCRIBABLE_KEY,iMultiQuizParent)
             }
         }.apply {
-            this.iMultiQuizView = iMultiQuizView
+            this.iMultiQuizParent = iMultiQuizParent
             this.questionIndex = questionIndex
         }
     }
@@ -80,7 +74,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     override fun setNextQuestion(correct: Boolean) {
         countDownTask.cancel(true)
-        iMultiQuizView.onNextQuestion(correct,countDownTask.timeRemaining)
+        iMultiQuizParent.onNextQuestion(correct,countDownTask.timeRemaining)
     }
 
 
