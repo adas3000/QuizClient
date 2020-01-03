@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     private val MQUIZ_DESCRIBABLE_KEY = "mquiz_act"
 
-    lateinit var questionList:List<Question>
+    var questionList:List<Question> = QuestionListKeeper.questionListKeeper
 
     lateinit var iMultiQuizParent:IMultiQuizParent
 
@@ -45,13 +46,14 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
     }
 
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?  {
-        questionList = QuestionListKeeper.questionListKeeper
-        setQuestionView(questionIndex)
-
 
         return inflater.inflate(R.layout.activity_quiz,container,false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setQuestionView(questionIndex)
     }
 
     fun setQuestionView(index:Int){
@@ -59,7 +61,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
         if(index>=questionList.size || index<0){
             throw IndexOutOfBoundsException("wrong index value")
         }
-        countDownTask = CountDownTask(textView_question_time_to_answer,this)
+        countDownTask = CountDownTask(textView_question_time_to_answer,this)//todo fix here null is exception on given textView
         countDownTask.execute(QuizActivity.TIME_TO_ANSWER)
 
         textView_question.text = questionList[index].value

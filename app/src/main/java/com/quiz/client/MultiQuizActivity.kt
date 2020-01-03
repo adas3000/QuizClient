@@ -63,8 +63,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         gameApiService = retrofit.create(GameApiService::class.java)
         multiQuizPresenter = MultiQuizPresenter(this, gameApiService)
 
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0, this))
+
+        val questionFragment = QuestionFragment.newInstance(0, this)
+
+        ft.replace(R.id.multi_quiz_placeholder,questionFragment)
         ft.commit()
+
     }
 
 
@@ -117,6 +121,9 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         rv_stats.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
         rv_stats.setHasFixedSize(true)
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
+
+        ft.replace(R.id.multi_quiz_placeholder, StatsFragment())
+        ft.commit()
     }
 
     override fun onScoreDeviceUpdateSuccess() {
