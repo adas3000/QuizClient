@@ -75,6 +75,9 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizView {
         allQuestionCount++
 
         textView_question_count.setText(correctCount.toString()+"/"+allQuestionCount.toString())
+
+
+
         //TODO make put to send score and after that send receive to get others players score then do statsfragment(y)
         ft.replace(R.id.multi_quiz_placeholder, StatsFragment())
         ft.commit()

@@ -23,7 +23,9 @@ import java.lang.IndexOutOfBoundsException
 
 class QuizActivity : AppCompatActivity() , IChoiceView , IMQuestionView {
 
+    companion object{
     val TIME_TO_ANSWER = 15
+    }
 
     lateinit var questionList:List<Question>
     lateinit var countDownTask:CountDownTask
@@ -52,12 +54,9 @@ class QuizActivity : AppCompatActivity() , IChoiceView , IMQuestionView {
     override fun setNextQuestion(correct: Boolean) {
 
         var color:String = "#82DD55" // success color
+        countDownTask.cancel(true)
 
         if(correct){
-
-
-
-            countDownTask.cancel(true)
             correctCount++
             Toasty.success(this,"Good",Toasty.LENGTH_SHORT).show()
         }
@@ -112,7 +111,7 @@ class QuizActivity : AppCompatActivity() , IChoiceView , IMQuestionView {
         val builder:AlertDialog.Builder = AlertDialog.Builder(this)
             .setMessage("Are you sure you wanna quit from quiz?You will loose all data from current quiz.")
             .setPositiveButton("Yes",{dialogInterface, i ->
-                super.onBackPressed()
+                startActivity(Intent(this,MainActivity::class.java))
                 finish()
             })
             .setNegativeButton("No",{dialogInterface,i->

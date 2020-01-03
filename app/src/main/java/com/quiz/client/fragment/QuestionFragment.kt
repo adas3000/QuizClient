@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.FinishActivity
+import com.quiz.client.MainActivity
+import com.quiz.client.QuizActivity
 import com.quiz.client.R
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
 import com.quiz.client.model.Question
@@ -30,8 +32,10 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
     lateinit var questionList:List<Question>
 
     lateinit var iMultiQuizView:IMultiQuizView
+
+    lateinit var countDownTask: CountDownTask
+
     var questionIndex:Int = -1
-    var timeRemaining = 0
 
     companion object {
         @JvmStatic
@@ -61,6 +65,9 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
         if(index>=questionList.size || index<0){
             throw IndexOutOfBoundsException("wrong index value")
         }
+        countDownTask = CountDownTask(textView_question_time_to_answer,this)
+        countDownTask.execute(QuizActivity.TIME_TO_ANSWER)
+
         textView_question.text = questionList[index].value
 
         rv_choices.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
@@ -72,12 +79,13 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
     }
 
     override fun setNextQuestion(correct: Boolean) {
-        iMultiQuizView.onNextQuestion(correct,timeRemaining)
+        countDownTask.cancel(true)
+        iMultiQuizView.onNextQuestion(correct,countDownTask.timeRemaining)
     }
 
 
     override fun onCountDownFinish() {
-        Toasty.normal(context!!.applicationContext,"Time is up!",Toasty.LENGTH_SHORT).show()
+        setNextQuestion(false)
     }
 
 

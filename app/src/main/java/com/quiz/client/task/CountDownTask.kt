@@ -35,11 +35,8 @@ class CountDownTask : AsyncTask<Int, Int, Boolean> {
     }
 
     override fun onCancelled() {
+        timeRemaining = textViewToUpdate.text.toString().toInt()
         textViewToUpdate.setText(R.string.time_to_answer_text)
-    }
-
-    override fun onPreExecute() {
-
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
