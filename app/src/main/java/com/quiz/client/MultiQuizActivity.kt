@@ -9,15 +9,17 @@ import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
 import com.quiz.client.fragment.StatsFragment
+import com.quiz.client.model.Score
 import com.quiz.client.service.GameApiService
 import com.quiz.client.view.IMultiQuizParent
+import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_quiz.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
 import javax.inject.Inject
 
-class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent {
+class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent , IMultiQuizView {
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -81,4 +83,20 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent {
 
     }
 
+
+    override fun onError(msg: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onupdateDeviceFinishedAnsweringToQuestionSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun oncheckAllDevicesAnsweredSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onfindScoresByUUID(scores: List<Score>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
