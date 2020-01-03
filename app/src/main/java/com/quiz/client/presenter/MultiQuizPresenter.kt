@@ -98,7 +98,6 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
     override fun onFindScoreByUUID(game_code: String) {
 
-
         val call = gameApiService.findScoresByUUID(game_code)
 
 

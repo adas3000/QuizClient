@@ -1,5 +1,6 @@
 package com.quiz.client
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
@@ -10,7 +11,11 @@ import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
 import com.quiz.client.fragment.StatsFragment
 import com.quiz.client.model.Score
+import com.quiz.client.presenter.IMultiQuizPresenter
+import com.quiz.client.presenter.MultiQuizPresenter
 import com.quiz.client.service.GameApiService
+import com.quiz.client.util.countScore
+import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IMultiQuizParent
 import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
@@ -19,15 +24,19 @@ import retrofit2.Retrofit
 import java.lang.NullPointerException
 import javax.inject.Inject
 
-class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent , IMultiQuizView {
+class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView {
 
     @Inject
     lateinit var retrofit: Retrofit
 
     lateinit var gameApiService: GameApiService
 
-    var allQuestionCount:Int=0
-    var correctCount:Int = 0
+    lateinit var multiQuizPresenter: IMultiQuizPresenter
+
+    lateinit var game_code: String
+
+    var allQuestionCount: Int = 0
+    var correctCount: Int = 0
     val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
 
 
@@ -35,18 +44,21 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent , IMultiQuizView
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multi_quiz)
 
-        val game_code: String? = this.intent.getStringExtra("game_code")
+        val temp_game_code = this.intent.getStringExtra("game_code")
 
-        if (game_code == null) {
+        if (temp_game_code == null) {
             throw NullPointerException("game_code is null")
         }
+
+        game_code = temp_game_code.toString()
 
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
         retrofit = appComponent.provideRetrofit()
 
         gameApiService = retrofit.create(GameApiService::class.java)
+        multiQuizPresenter = MultiQuizPresenter(this, gameApiService)
 
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0,this))
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0, this))
         ft.commit()
     }
 
@@ -57,50 +69,50 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent , IMultiQuizView
 
     override fun onNextQuestion(correct: Boolean, time_remaining: Int) {
 
-        var color:String = "#82DD55" // success color
+        var color: String = "#82DD55" // success color
+        var points_to_add: Int = countScore(time_remaining.toString())
 
-        if(correct){
+        if (correct) {
             correctCount++
-            Toasty.success(this,"Good", Toasty.LENGTH_SHORT).show()
-        }
 
-        else {
-            Toasty.error(this,"Wrong", Toasty.LENGTH_SHORT).show()
+            Toasty.success(this, "Good", Toasty.LENGTH_SHORT).show()
+        } else {
+            Toasty.error(this, "Wrong", Toasty.LENGTH_SHORT).show()
             color = "#E23636" // error color
         }
-        rv_top.findViewHolderForAdapterPosition(allQuestionCount)?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
-            Color.parseColor(color))
+        rv_top.findViewHolderForAdapterPosition(allQuestionCount)
+            ?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
+            Color.parseColor(color)
+        )
 
         allQuestionCount++
 
-        textView_question_count.setText(correctCount.toString()+"/"+allQuestionCount.toString())
+        textView_question_count.setText(correctCount.toString() + "/" + allQuestionCount.toString())
 
-
-
-        //TODO make put to send score and after that send receive to get others players score then do statsfragment(y)
-        ft.replace(R.id.multi_quiz_placeholder, StatsFragment())
-        ft.commit()
-
+        multiQuizPresenter.onupdateDeviceScoreInGame(game_code, getApplicationToken(), points_to_add.toString())
     }
 
 
     override fun onError(msg: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
+
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     override fun onupdateDeviceFinishedAnsweringToQuestionSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        multiQuizPresenter.onCheckAllDevicesAnswered(game_code)
     }
 
     override fun oncheckAllDevicesAnsweredSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        multiQuizPresenter.onFindScoreByUUID(game_code)
     }
 
     override fun onfindScoresByUUID(scores: List<Score>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onScoreDeviceUpdateSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        multiQuizPresenter.onUpdateDeviceFinishedAnswering(game_code, getApplicationToken())
     }
 }

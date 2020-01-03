@@ -5,7 +5,6 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,9 +43,6 @@ class QuizActivity : AppCompatActivity() , IChoiceView , IMQuestionView {
         rv_top.setHasFixedSize(true)
 
         rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
-
-        for(str in questionList)
-            println(str.value)
 
         setQuestionView(0)
     }
