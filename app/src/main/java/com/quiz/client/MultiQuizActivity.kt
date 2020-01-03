@@ -110,6 +110,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onfindScoresByUUID(scores: List<Score>) {
 
+
+        
     }
 
     override fun onScoreDeviceUpdateSuccess() {
