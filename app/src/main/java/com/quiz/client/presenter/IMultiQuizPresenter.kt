@@ -1,7 +1,6 @@
 package com.quiz.client.presenter
 
-import com.quiz.client.model.Score
-import com.quiz.client.service.GameApiService
+
 
 interface IMultiQuizPresenter {
 
@@ -11,7 +10,7 @@ interface IMultiQuizPresenter {
 
     fun onCheckAllDevicesAnswered(game_code:String)
 
-    fun onFindScoreByUUID(game_code:String):List<Score>
+    fun onFindScoreByUUID(game_code:String)
 
 
 

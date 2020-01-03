@@ -99,4 +99,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent , IMultiQuizView
     override fun onfindScoresByUUID(scores: List<Score>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun onScoreDeviceUpdateSuccess() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

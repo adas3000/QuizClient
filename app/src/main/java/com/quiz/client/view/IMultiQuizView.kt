@@ -8,4 +8,5 @@ interface IMultiQuizView {
     fun onupdateDeviceFinishedAnsweringToQuestionSuccess()
     fun oncheckAllDevicesAnsweredSuccess()
     fun onfindScoresByUUID(scores:List<Score>)
+    fun onScoreDeviceUpdateSuccess()
 }
