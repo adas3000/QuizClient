@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.quiz.client.adapter.RecyclerViewStatsAdapter
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
@@ -20,6 +24,7 @@ import com.quiz.client.view.IMultiQuizParent
 import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_quiz.*
+import kotlinx.android.synthetic.main.fstats_layout.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
 import javax.inject.Inject
@@ -109,9 +114,9 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onfindScoresByUUID(scores: List<Score>) {
-
-
-
+        rv_stats.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
+        rv_stats.setHasFixedSize(true)
+        rv_stats.adapter = RecyclerViewStatsAdapter(scores)
     }
 
     override fun onScoreDeviceUpdateSuccess() {

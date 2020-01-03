@@ -11,7 +11,6 @@ import com.quiz.client.model.Score
 class RecyclerViewStatsAdapter(val scoreList:List<Score>):RecyclerView.Adapter<RecyclerViewStatsAdapter.ViewHolder>() {
 
 
-
     override fun getItemCount(): Int {
         return scoreList.size
     }
