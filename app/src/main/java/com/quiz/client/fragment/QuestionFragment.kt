@@ -61,7 +61,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
         if(index>=questionList.size || index<0){
             throw IndexOutOfBoundsException("wrong index value")
         }
-        countDownTask = CountDownTask(textView_question_time_to_answer,this)//todo fix here null is exception on given textView
+        countDownTask = CountDownTask(textView_question_time_to_answer,this)
         countDownTask.execute(QuizActivity.TIME_TO_ANSWER)
 
         textView_question.text = questionList[index].value

@@ -18,11 +18,11 @@ interface GameApiService {
     @Headers("Content-Type: application/json")
     @PUT("/api/game/update/score/{uuid}/{serial}/{howmany}")
     fun updateDeviceScoreInGame(@Path("uuid")uuid:String,@Path("serial")serial:String,
-                                @Path("howmany")howmany:String): Call<String>
+                                @Path("howmany")howmany:String): Call<List<String>>
 
     @Headers("Content-Type: application/json")
     @PUT("/api/game/update/answer_finished/{uuid}/{serial}")
-    fun updateDeviceFinishedAnsweringToQuestion(@Path("uuid")uuid:String,@Path("serial")serial:String):Call<String>
+    fun updateDeviceFinishedAnsweringToQuestion(@Path("uuid")uuid:String,@Path("serial")serial:String):Call<List<String>>
 
 
     @Headers("Content-Type: application/json")

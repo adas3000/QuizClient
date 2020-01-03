@@ -22,14 +22,13 @@ class MultiQuizPresenter : IMultiQuizPresenter {
         val call = gameApiService.updateDeviceScoreInGame(game_code,serial,howmany)
 
 
-        call.enqueue(object:Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
+        call.enqueue(object:Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 println("onupdateDeviceScoreInGame failure:"+t.message)
                 iMultiQuizView.onError("onupdateDeviceScoreInGame Failure")
             }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if(response.isSuccessful){
                     iMultiQuizView.onScoreDeviceUpdateSuccess()
                 }
@@ -37,8 +36,8 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                     println("onupdateDeviceScoreInGame response error:|CODE="+response.code()+"|MSG:"+response.body()+"|")
                     iMultiQuizView.onError("onupdateDeviceScoreInGame result not 200")
                 }
-
             }
+
         })
 
     }
@@ -48,13 +47,14 @@ class MultiQuizPresenter : IMultiQuizPresenter {
         val call = gameApiService.updateDeviceFinishedAnsweringToQuestion(game_code,serial)
 
 
-        call.enqueue(object:Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
+        call.enqueue(object:Callback<List<String>>{
+
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 println("onUpdateDeviceFinishedAnswering failure:"+t.message)
                 iMultiQuizView.onError("onUpdateDeviceFinishedAnswering Failure")
             }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if(response.isSuccessful){
                     iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
                 }
@@ -63,6 +63,8 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                     iMultiQuizView.onError("onUpdateDeviceFinishedAnswering result not 200")
                 }
             }
+
+
         })
 
     }

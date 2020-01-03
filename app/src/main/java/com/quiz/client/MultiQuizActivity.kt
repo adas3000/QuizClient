@@ -42,7 +42,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     var allQuestionCount: Int = 0
     var correctCount: Int = 0
-    val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,9 +64,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         multiQuizPresenter = MultiQuizPresenter(this, gameApiService)
 
 
-        val questionFragment = QuestionFragment.newInstance(0, this)
-
-        ft.replace(R.id.multi_quiz_placeholder,questionFragment)
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0, this))
         ft.commit()
 
     }
@@ -104,7 +103,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onError(msg: String) {
         Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
-
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
@@ -118,11 +116,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onfindScoresByUUID(scores: List<Score>) {
-        rv_stats.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
-        rv_stats.setHasFixedSize(true)
-        rv_stats.adapter = RecyclerViewStatsAdapter(scores)
 
-        ft.replace(R.id.multi_quiz_placeholder, StatsFragment())
+        val sf = StatsFragment()
+        sf.scores = scores
+
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.multi_quiz_placeholder, sf)
         ft.commit()
     }
 
