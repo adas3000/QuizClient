@@ -14,5 +14,6 @@
     <string name="opponent_kind_bluetooth_text">Bluetooth</string>
     <string name="queue_load_text">Searching...</string>
     <string name="wait_load_text">Waiting for other player/s...</string>
-    <string name="points_for_good_question_text">476</string>
+    <string name="points_for_good_question_text">475</string>
+    <string name="time_to_answer_text">15</string>
 </resources>

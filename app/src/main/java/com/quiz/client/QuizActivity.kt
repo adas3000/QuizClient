@@ -13,17 +13,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
 import com.quiz.client.adapter.RecyclerViewHeaderAdapter
 import com.quiz.client.model.Question
+import com.quiz.client.task.CountDownTask
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.view.IChoiceView
+import com.quiz.client.view.IMQuestionView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_quiz.*
 import java.lang.IndexOutOfBoundsException
 
-class QuizActivity : AppCompatActivity() , IChoiceView {
+class QuizActivity : AppCompatActivity() , IChoiceView , IMQuestionView {
+
+    val TIME_TO_ANSWER = 15
 
     lateinit var questionList:List<Question>
+    lateinit var countDownTask:CountDownTask
+
     var allQuestionCount:Int=0
     var correctCount:Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +54,10 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         var color:String = "#82DD55" // success color
 
         if(correct){
+
+
+
+            countDownTask.cancel(true)
             correctCount++
             Toasty.success(this,"Good",Toasty.LENGTH_SHORT).show()
         }
@@ -83,6 +94,9 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         if(index>=questionList.size || index<0){
             throw IndexOutOfBoundsException("wrong index value")
         }
+        countDownTask = CountDownTask(textView_question_time_to_answer,this)
+        countDownTask.execute(TIME_TO_ANSWER)
+
         textView_question.text = questionList[index].value
 
         rv_choices.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
@@ -108,5 +122,8 @@ class QuizActivity : AppCompatActivity() , IChoiceView {
         builder.show()
     }
 
+    override fun onCountDownFinish() {
+        setNextQuestion(false)
+    }
 
 }

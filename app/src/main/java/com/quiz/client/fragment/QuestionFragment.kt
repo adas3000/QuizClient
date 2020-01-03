@@ -52,7 +52,6 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
         questionList = QuestionListKeeper.questionListKeeper
         setQuestionView(questionIndex)
 
-        CountDownTask(textView_question_time_to_answer,this).execute(15)
 
         return inflater.inflate(R.layout.activity_quiz,container,false)
     }

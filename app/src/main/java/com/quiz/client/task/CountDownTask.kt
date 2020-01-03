@@ -2,7 +2,9 @@ package com.quiz.client.task
 
 import android.os.AsyncTask
 import android.widget.TextView
+import com.quiz.client.R
 import com.quiz.client.view.IMQuestionView
+import kotlinx.android.synthetic.main.activity_quiz.view.*
 import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
 
@@ -32,12 +34,16 @@ class CountDownTask : AsyncTask<Int, Int, Boolean> {
         return true
     }
 
+    override fun onCancelled() {
+        textViewToUpdate.setText(R.string.time_to_answer_text)
+    }
+
     override fun onPreExecute() {
 
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
-        textViewToUpdate.setText(values[0]!!.toInt())
+        textViewToUpdate.setText(values[0]!!.toString())
     }
 
     override fun onPostExecute(result: Boolean?) {
