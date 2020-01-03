@@ -1,5 +1,6 @@
 package com.quiz.client.service
 
+import com.quiz.client.model.Score
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -31,6 +32,6 @@ interface GameApiService {
 
     @Headers("Content-Type: application/json")
     @GET("/api/game/find/scores/{uuid}")
-    fun findScoresByUUID(@Path("uuid")uuid:String)
+    fun findScoresByUUID(@Path("uuid")uuid:String):Call<List<Score>>
 
 }
