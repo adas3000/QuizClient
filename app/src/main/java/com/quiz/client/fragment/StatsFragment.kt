@@ -16,11 +16,17 @@ class StatsFragment : Fragment() {
 
     lateinit var scores:List<Score>
 
+
     override fun onStart() {
         super.onStart()
         rv_stats.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
         rv_stats.setHasFixedSize(true)
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
+
+        fstats_textView_goNext.setOnClickListener {
+
+        }
+
     }
 
 

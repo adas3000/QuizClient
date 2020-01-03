@@ -7,5 +7,18 @@
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_stats"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
+
+
+    <TextView
+            android:id="@+id/fstats_textView_goNext"
+            android:background="@drawable/tv_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Next"
+            android:gravity="center"
+            android:textSize="24sp"
+    />
+
 </LinearLayout>

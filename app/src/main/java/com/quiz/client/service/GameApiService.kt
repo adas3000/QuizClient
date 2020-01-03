@@ -34,4 +34,8 @@ interface GameApiService {
     @GET("/api/game/find/scores/{uuid}")
     fun findScoresByUUID(@Path("uuid")uuid:String):Call<List<Score>>
 
+    @Headers("Content-Type: application/json")
+    @PUT("/api/game/update/answer/checked/{serial}")
+    fun updateDeviceForNewQuestion(@Path("serial")serial:String):Call<List<String>>
+
 }
