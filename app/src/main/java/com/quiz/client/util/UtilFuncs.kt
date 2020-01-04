@@ -58,5 +58,5 @@ fun countScore(remainingTime:String):Int{
         println("NumberFormatE.,Msg:"+e.message)
         return 0
     }
-    return (multipler*bonus*0.001).toInt()
+    return (multipler*5*0.001).toInt()
 }

@@ -77,7 +77,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
         var color: String = "#82DD55" // success color
         val points_to_add: Int = countScore(time_remaining.toString())
-
         if (correct) {
             correctCount++
             Toasty.success(this, "Good", Toasty.LENGTH_SHORT).show()
