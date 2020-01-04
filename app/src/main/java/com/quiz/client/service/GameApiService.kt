@@ -22,11 +22,11 @@ interface GameApiService {
     fun updateDeviceFinishedAnsweringToQuestion(@Path("uuid")uuid:String,@Path("serial")serial:String):Call<List<String>>
 
     @Headers("Content-Type: application/json")
-    @PUT("/api/game/answer/{serial}")
+    @PUT("/api/game/update/answer/{serial}")
     fun updateDeviceAnswerState(@Path("serial")serial: String,@Body value:Boolean):Call<List<String>>
 
     @Headers("Content-Type: application/json")
-    @PUT("/api/game/ready/{serial}")
+    @PUT("/api/game/update/ready/{serial}")
     fun updateDeviceReadyForNextState(@Path("serial")serial: String,@Body value:Boolean):Call<List<String>>
 
 
