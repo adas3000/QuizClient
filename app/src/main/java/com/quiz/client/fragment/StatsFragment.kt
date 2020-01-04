@@ -10,18 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
 import com.quiz.client.adapter.RecyclerViewStatsAdapter
 import com.quiz.client.model.Score
+import com.quiz.client.presenter.IMultiQuizPresenter
+import com.quiz.client.util.getApplicationToken
+import com.quiz.client.view.IMQuestionView
+import com.quiz.client.view.IMultiQuizView
 import kotlinx.android.synthetic.main.fstats_layout.*
 
 class StatsFragment : Fragment() {
 
     lateinit var scores:List<Score>
-
+    lateinit var multiQuizPresenter:IMultiQuizPresenter
+    lateinit var game_code:String
 
     override fun onStart() {
         super.onStart()
         rv_stats.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
         rv_stats.setHasFixedSize(true)
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
+
+        fstats_textView_goNext.setOnClickListener {
+            multiQuizPresenter.onNewQuestionCheck(game_code)
+        }
 
     }
 

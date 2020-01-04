@@ -18,6 +18,7 @@ import com.quiz.client.model.Score
 import com.quiz.client.presenter.IMultiQuizPresenter
 import com.quiz.client.presenter.MultiQuizPresenter
 import com.quiz.client.service.GameApiService
+import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.util.countScore
 import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IMultiQuizParent
@@ -66,12 +67,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0, this))
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this))
         ft.commit()
-
-        fstats_textView_goNext.setOnClickListener {
-
-        }
 
     }
 
@@ -83,11 +80,10 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     override fun onNextQuestion(correct: Boolean, time_remaining: Int) {
 
         var color: String = "#82DD55" // success color
-        var points_to_add: Int = countScore(time_remaining.toString())
+        val points_to_add: Int = countScore(time_remaining.toString())
 
         if (correct) {
             correctCount++
-
             Toasty.success(this, "Good", Toasty.LENGTH_SHORT).show()
         } else {
             Toasty.error(this, "Wrong", Toasty.LENGTH_SHORT).show()
@@ -99,6 +95,17 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         )
 
         allQuestionCount++
+
+        if(allQuestionCount==QuestionListKeeper.questionListKeeper.size){
+
+            val intent = Intent(this,FinishActivity::class.java).apply{
+                putExtra("score",correctCount.toString())
+                putExtra("all",allQuestionCount.toString())
+            }
+
+            startActivity(intent)
+            finish()
+        }
 
         textView_question_count.setText(correctCount.toString() + "/" + allQuestionCount.toString())
 
@@ -122,8 +129,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onfindScoresByUUID(scores: List<Score>) {
 
+        multiQuizPresenter.onPlayerReadySent(getApplicationToken())
+
         val sf = StatsFragment()
         sf.scores = scores
+        sf.multiQuizPresenter = multiQuizPresenter
+        sf.game_code = game_code
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.multi_quiz_placeholder, sf)
@@ -143,11 +154,18 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onPlayerReadySentSuccess() {
-
+        Toasty.success(this,"Player ready sent successfully",Toasty.LENGTH_SHORT).show()
     }
 
     override fun onCheckNextQuestionAv() {
-
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this))
+        ft.commit()
     }
 
+    override fun onWaitForNextQuestionAv() {
+        Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
+        TimeUnit.SECONDS.sleep(1)
+        multiQuizPresenter.onNewQuestionCheck(game_code)
+    }
 }

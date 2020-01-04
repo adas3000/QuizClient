@@ -1,6 +1,5 @@
 package com.quiz.client.module
 
-import com.quiz.client.service.QuizApiService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -15,7 +14,7 @@ object AppModule {
         @Singleton
         @Provides
         fun provideRetrofitInstance(): Retrofit {
-            return Retrofit.Builder().baseUrl("http://10.0.2.2:8082")
+            return Retrofit.Builder().baseUrl("http://192.168.0.103:8082")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

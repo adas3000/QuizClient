@@ -130,9 +130,10 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
                 if (response.isSuccessful && response.body() == true) {
+                    println("onNewQuestionCheck true and 200")
                     iMultiQuizView.onCheckNextQuestionAv()
                 } else if (response.isSuccessful && response.body() == false) {
-                    iMultiQuizView.onWaitForOthers()
+                    iMultiQuizView.onWaitForNextQuestionAv()
                 } else {
                     println("onNewQuestionCheck failure:" + response.code())
                     iMultiQuizView.onError("onNewQuestionCheck Failure")
@@ -150,7 +151,7 @@ class MultiQuizPresenter : IMultiQuizPresenter {
         call.enqueue(object : Callback<List<String>> {
 
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("updateDeviceForNewQuestion failure:" + t.message)
+                println("onPlayerReadySent failure:" + t.message)
                 iMultiQuizView.onError("updateDeviceForNewQuestion Failure")
             }
 
@@ -158,8 +159,8 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                 if (response.isSuccessful) {
                     iMultiQuizView.onPlayerReadySentSuccess()
                 } else {
-                    println("updateDeviceForNewQuestion failure:" + response.code())
-                    iMultiQuizView.onError("updateDeviceForNewQuestion Failure")
+                    println("onPlayerReadySent failure:" + response.code())
+                    iMultiQuizView.onError("onPlayerReadySent Failure")
                 }
             }
         })

@@ -12,4 +12,5 @@ interface IMultiQuizView {
     fun onWaitForOthers()
     fun onPlayerReadySentSuccess()
     fun onCheckNextQuestionAv()
+    fun onWaitForNextQuestionAv()
 }
