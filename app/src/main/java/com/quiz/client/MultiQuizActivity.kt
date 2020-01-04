@@ -6,10 +6,6 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.quiz.client.adapter.RecyclerViewStatsAdapter
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
@@ -25,7 +21,6 @@ import com.quiz.client.view.IMultiQuizParent
 import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_quiz.*
-import kotlinx.android.synthetic.main.fstats_layout.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
@@ -51,10 +46,10 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_multi_quiz)
 
-        val temp_game_code = this.intent.getStringExtra("game_code")
+        val temp_game_code = this.intent.getStringExtra("serial")
 
         if (temp_game_code == null) {
-            throw NullPointerException("game_code is null")
+            throw NullPointerException("serial is null")
         }
 
         game_code = temp_game_code.toString()
@@ -129,12 +124,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onfindScoresByUUID(scores: List<Score>) {
 
-        multiQuizPresenter.onPlayerReadySent(getApplicationToken())
+        //multiQuizPresenter.onPlayerReadySent(getApplicationToken())
 
         val sf = StatsFragment()
         sf.scores = scores
         sf.multiQuizPresenter = multiQuizPresenter
-        sf.game_code = game_code
+        sf.serial = game_code
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.multi_quiz_placeholder, sf)
@@ -143,7 +138,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onScoreDeviceUpdateSuccess() {
         multiQuizPresenter.onUpdateDeviceAnswerState(getApplicationToken(),true)
-        //multiQuizPresenter.onUpdateDeviceFinishedAnswering(game_code, getApplicationToken())
+        //multiQuizPresenter.onUpdateDeviceFinishedAnswering(serial, getApplicationToken())
     }
 
     override fun onWaitForOthers() {

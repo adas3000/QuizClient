@@ -23,10 +23,10 @@ class WaitActivity : AppCompatActivity() , IWaitView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wait)
 
-        val game_code:String? = this.intent.getStringExtra("game_code")
+        val game_code:String? = this.intent.getStringExtra("serial")
 
         if(game_code==null){
-            throw NullPointerException("game_code is null")
+            throw NullPointerException("serial is null")
         }
 
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
@@ -39,7 +39,7 @@ class WaitActivity : AppCompatActivity() , IWaitView {
 
     override fun onSuccess(code: String) {
         val intent = Intent(this,MultiQuizActivity::class.java).apply {
-            putExtra("game_code",code)
+            putExtra("serial",code)
         }
         startActivity(intent)
     }

@@ -20,7 +20,7 @@ class StatsFragment : Fragment() {
 
     lateinit var scores:List<Score>
     lateinit var multiQuizPresenter:IMultiQuizPresenter
-    lateinit var game_code:String
+    lateinit var serial:String
 
     override fun onStart() {
         super.onStart()
@@ -29,7 +29,7 @@ class StatsFragment : Fragment() {
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
 
         fstats_textView_goNext.setOnClickListener {
-            multiQuizPresenter.onNewQuestionCheck(game_code)
+
         }
 
     }

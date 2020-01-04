@@ -184,8 +184,6 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                 }
             }
         })
-
-
     }
 
     override fun onUpdateDeviceReadyForNextState(serial: String, value: Boolean) {
@@ -208,8 +206,10 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                 }
             }
         })
-
     }
 
+    override fun onPrepareForNextQuestion(serial: String, value_answer: Boolean, value_ready: Boolean) {
+
+    }
 
 }

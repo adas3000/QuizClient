@@ -20,4 +20,6 @@ interface IMultiQuizPresenter {
 
     fun onUpdateDeviceReadyForNextState(serial:String,value:Boolean)
 
+    fun onPrepareForNextQuestion(serial:String,value_answer:Boolean,value_ready:Boolean)
+
 }

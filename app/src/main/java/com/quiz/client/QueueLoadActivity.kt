@@ -55,7 +55,7 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
 
     override fun onSuccess(code:String) {
         val intent = Intent(this,WaitActivity::class.java).apply {
-            putExtra("game_code",code)
+            putExtra("serial",code)
         }
         startActivity(intent)
         finish()
