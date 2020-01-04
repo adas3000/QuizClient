@@ -62,7 +62,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this))
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount
+        ,allQuestionCount))
         ft.commit()
 
     }
@@ -84,11 +85,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
             Toasty.error(this, "Wrong", Toasty.LENGTH_SHORT).show()
             color = "#E23636" // error color
         }
-        rv_top.findViewHolderForAdapterPosition(allQuestionCount)
-            ?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
-            Color.parseColor(color)
-        )
-
         allQuestionCount++
 
         if(allQuestionCount==QuestionListKeeper.questionListKeeper.size){
@@ -101,9 +97,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
             startActivity(intent)
             finish()
         }
-
-        textView_question_count.setText(correctCount.toString() + "/" + allQuestionCount.toString())
-
         multiQuizPresenter.onupdateDeviceScoreInGame(game_code, getApplicationToken(), points_to_add.toString())
     }
 
@@ -123,11 +116,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onfindScoresByUUID(scores: List<Score>) {
+        multiQuizPresenter.onUpdateDeviceReadyForNextState(getApplicationToken(),false)
 
         val sf = StatsFragment.newInstance(false,true)
         sf.scores = scores
         sf.multiQuizPresenter = multiQuizPresenter
-        sf.serial = game_code
+        sf.serial = getApplicationToken()
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.multi_quiz_placeholder, sf)
@@ -136,7 +130,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onScoreDeviceUpdateSuccess() {
         multiQuizPresenter.onUpdateDeviceAnswerState(getApplicationToken(),true)
-        //multiQuizPresenter.onUpdateDeviceFinishedAnswering(serial, getApplicationToken())
     }
 
     override fun onWaitForOthers() {
@@ -153,7 +146,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onCheckNextQuestionAv() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this))
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount,
+            allQuestionCount))
         ft.commit()
     }
 

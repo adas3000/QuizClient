@@ -1,16 +1,19 @@
 package com.quiz.client.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.QuizActivity
 import com.quiz.client.R
 import com.quiz.client.adapter.RecyclerViewAnswerAdapter
+import com.quiz.client.adapter.RecyclerViewHeaderAdapter
 import com.quiz.client.model.Question
 import com.quiz.client.task.CountDownTask
 import com.quiz.client.util.QuestionListKeeper
@@ -30,18 +33,25 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     lateinit var countDownTask: CountDownTask
 
+    var allQuestionCount: Int = 0
+    var correctCount: Int = 0
+
     var questionIndex:Int = -1
 
     companion object {
         @JvmStatic
-        fun newInstance(questionIndex:Int, iMultiQuizParent: IMultiQuizParent) = QuestionFragment().apply {
+        fun newInstance(questionIndex:Int, iMultiQuizParent: IMultiQuizParent,correctCount:Int,allQuestionCount:Int) = QuestionFragment().apply {
             arguments = Bundle().apply {
                 putInt("questionIndex",questionIndex)
+                putInt("correctCount",correctCount)
+                putInt("allQuestionCount",allQuestionCount)
                 putSerializable(MQUIZ_DESCRIBABLE_KEY,iMultiQuizParent)
             }
         }.apply {
             this.iMultiQuizParent = iMultiQuizParent
             this.questionIndex = questionIndex
+            this.allQuestionCount = allQuestionCount
+            this.correctCount = correctCount
         }
     }
 
@@ -71,6 +81,19 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
         rv_choices.adapter = RecyclerViewAnswerAdapter(questionList.get(index).choices!!.toList(),questionList.get(index).answer!!.correct!!.value,
             this)
+
+        rv_top.layoutManager = GridLayoutManager(context,15)
+        rv_top.setHasFixedSize(true)
+
+        rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
+
+        rv_top.findViewHolderForAdapterPosition(allQuestionCount)
+            ?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
+            Color.parseColor("#E23636")
+        )
+
+
+        textView_question_count.setText(correctCount.toString() + "/" + allQuestionCount.toString())
 
     }
 

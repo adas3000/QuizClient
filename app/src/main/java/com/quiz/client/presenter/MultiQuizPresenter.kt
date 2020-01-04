@@ -198,10 +198,7 @@ class MultiQuizPresenter : IMultiQuizPresenter {
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.isSuccessful){
-                    iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
-                }
-                else{
+                if(!response.isSuccessful){
                     println("onUpdateDeviceReadyForNextState failure:" + response.code())
                     iMultiQuizView.onError("onUpdateDeviceReadyForNextState Failure")
                 }
