@@ -23,10 +23,6 @@ class StatsFragment : Fragment() {
         rv_stats.setHasFixedSize(true)
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
 
-        fstats_textView_goNext.setOnClickListener {
-
-        }
-
     }
 
 

@@ -69,6 +69,10 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(0, this))
         ft.commit()
 
+        fstats_textView_goNext.setOnClickListener {
+
+        }
+
     }
 
 

@@ -38,4 +38,9 @@ interface GameApiService {
     @PUT("/api/game/update/answer/checked/{serial}")
     fun updateDeviceForNewQuestion(@Path("serial")serial:String):Call<List<String>>
 
+    @Headers("Content-Type: application/json")
+    @GET("/api/game/check/question/next/available/{uuid}")
+    fun checkNextQuestionAvailable(@Path("uuid")uuid:String):Call<Boolean>
+
+
 }
