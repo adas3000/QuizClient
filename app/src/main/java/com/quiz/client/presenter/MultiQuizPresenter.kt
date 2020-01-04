@@ -1,5 +1,6 @@
 package com.quiz.client.presenter
 
+import com.quiz.client.model.Device
 import com.quiz.client.model.Score
 import com.quiz.client.service.GameApiService
 import com.quiz.client.view.IMultiQuizView
@@ -208,7 +209,27 @@ class MultiQuizPresenter : IMultiQuizPresenter {
         })
     }
 
-    override fun onPrepareForNextQuestion(serial: String, value_answer: Boolean, value_ready: Boolean) {
+    override fun onUpdateDevice(serial: String, value_answer: Boolean, value_ready: Boolean) {
+
+        val call = gameApiService.updateDevice(Device(serial,value_answer,value_ready))
+
+        call.enqueue(object:Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("onUpdateDevice failure:" + t.message)
+                iMultiQuizView.onError("onUpdateDevice Failure")
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if(response.isSuccessful){
+                    iMultiQuizView.onDeviceUpdateSuccess()
+                }
+                else{
+                    println("onUpdateDevice failure:" + response.code())
+                    iMultiQuizView.onError("onUpdateDevice Failure")
+                }
+            }
+        })
+
 
     }
 

@@ -22,6 +22,23 @@ class StatsFragment : Fragment() {
     lateinit var multiQuizPresenter:IMultiQuizPresenter
     lateinit var serial:String
 
+     var value_ready:Boolean=false
+     var value_answer:Boolean=false
+
+    companion object{
+        @JvmStatic
+        fun newInstance(value_answer:Boolean,value_ready:Boolean) = StatsFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean("value_answer",value_answer)
+                putBoolean("value_ready",value_ready)
+            }
+        }.apply {
+            this.value_ready = value_ready
+            this.value_answer = value_answer
+        }
+    }
+
+
     override fun onStart() {
         super.onStart()
         rv_stats.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
@@ -29,7 +46,7 @@ class StatsFragment : Fragment() {
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
 
         fstats_textView_goNext.setOnClickListener {
-
+            multiQuizPresenter.onUpdateDevice(serial,value_answer,value_ready)
         }
 
     }

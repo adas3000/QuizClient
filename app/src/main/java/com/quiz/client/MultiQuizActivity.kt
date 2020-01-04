@@ -124,9 +124,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onfindScoresByUUID(scores: List<Score>) {
 
-        //multiQuizPresenter.onPlayerReadySent(getApplicationToken())
-
-        val sf = StatsFragment()
+        val sf = StatsFragment.newInstance(false,true)
         sf.scores = scores
         sf.multiQuizPresenter = multiQuizPresenter
         sf.serial = game_code
@@ -162,6 +160,10 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     override fun onWaitForNextQuestionAv() {
         Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
         TimeUnit.SECONDS.sleep(1)
+        multiQuizPresenter.onNewQuestionCheck(game_code)
+    }
+
+    override fun onDeviceUpdateSuccess() {
         multiQuizPresenter.onNewQuestionCheck(game_code)
     }
 }

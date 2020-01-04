@@ -1,5 +1,6 @@
 package com.quiz.client.service
 
+import com.quiz.client.model.Device
 import com.quiz.client.model.Score
 import retrofit2.Call
 import retrofit2.http.*
@@ -47,5 +48,8 @@ interface GameApiService {
     @GET("/api/game/check/question/next/available/{uuid}")
     fun checkNextQuestionAvailable(@Path("uuid")uuid:String):Call<Boolean>
 
+    @Headers("Content-Type: application/json")
+    @PUT("/api/game/update/device")
+    fun updateDevice(@Body body:Device):Call<List<String>>
 
 }
