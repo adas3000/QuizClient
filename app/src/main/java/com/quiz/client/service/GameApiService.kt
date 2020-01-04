@@ -2,10 +2,7 @@ package com.quiz.client.service
 
 import com.quiz.client.model.Score
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface GameApiService {
 
@@ -23,6 +20,14 @@ interface GameApiService {
     @Headers("Content-Type: application/json")
     @PUT("/api/game/update/answer_finished/{uuid}/{serial}")
     fun updateDeviceFinishedAnsweringToQuestion(@Path("uuid")uuid:String,@Path("serial")serial:String):Call<List<String>>
+
+    @Headers("Content-Type: application/json")
+    @PUT("/api/game/answer/{serial}")
+    fun updateDeviceAnswerState(@Path("serial")serial: String,@Body value:Boolean):Call<List<String>>
+
+    @Headers("Content-Type: application/json")
+    @PUT("/api/game/ready/{serial}")
+    fun updateDeviceReadyForNextState(@Path("serial")serial: String,@Body value:Boolean):Call<List<String>>
 
 
     @Headers("Content-Type: application/json")

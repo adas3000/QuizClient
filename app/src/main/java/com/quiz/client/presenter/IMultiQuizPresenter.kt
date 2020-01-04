@@ -16,4 +16,8 @@ interface IMultiQuizPresenter {
 
     fun onNewQuestionCheck(game_code: String)
 
+    fun onUpdateDeviceAnswerState(serial:String,value:Boolean)
+
+    fun onUpdateDeviceReadyForNextState(serial:String,value:Boolean)
+
 }

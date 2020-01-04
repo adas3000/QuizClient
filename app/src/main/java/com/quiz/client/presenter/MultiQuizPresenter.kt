@@ -140,8 +140,6 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                 }
             }
         })
-
-
     }
 
     override fun onPlayerReadySent(game_code: String) {
@@ -164,7 +162,54 @@ class MultiQuizPresenter : IMultiQuizPresenter {
                 }
             }
         })
+    }
+
+    override fun onUpdateDeviceAnswerState(serial: String, value: Boolean) {
+
+        val call = gameApiService.updateDeviceAnswerState(serial,value)
+
+        call.enqueue(object:Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("onUpdateDeviceAnswerState failure:" + t.message)
+                iMultiQuizView.onError("onUpdateDeviceAnswerState Failure")
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if(response.isSuccessful){
+                   iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
+                }
+                else{
+                    println("onUpdateDeviceAnswerState failure:" + response.code())
+                    iMultiQuizView.onError("onUpdateDeviceAnswerState Failure")
+                }
+            }
+        })
+
 
     }
+
+    override fun onUpdateDeviceReadyForNextState(serial: String, value: Boolean) {
+
+        val call = gameApiService.updateDeviceReadyForNextState(serial,value)
+
+        call.enqueue(object:Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("onUpdateDeviceReadyForNextState failure:" + t.message)
+                iMultiQuizView.onError("onUpdateDeviceReadyForNextState Failure")
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if(response.isSuccessful){
+                    iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
+                }
+                else{
+                    println("onUpdateDeviceReadyForNextState failure:" + response.code())
+                    iMultiQuizView.onError("onUpdateDeviceReadyForNextState Failure")
+                }
+            }
+        })
+
+    }
+
 
 }

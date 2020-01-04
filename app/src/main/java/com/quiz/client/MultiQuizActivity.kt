@@ -142,7 +142,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onScoreDeviceUpdateSuccess() {
-        multiQuizPresenter.onUpdateDeviceFinishedAnswering(game_code, getApplicationToken())
+        multiQuizPresenter.onUpdateDeviceAnswerState(getApplicationToken(),true)
+        //multiQuizPresenter.onUpdateDeviceFinishedAnswering(game_code, getApplicationToken())
     }
 
     override fun onWaitForOthers() {
