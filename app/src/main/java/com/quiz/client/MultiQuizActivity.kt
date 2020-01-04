@@ -142,12 +142,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     }
 
-    override fun onPlayerReadySent() {
+    override fun onPlayerReadySentSuccess() {
 
     }
 
     override fun onCheckNextQuestionAv() {
-        
+
     }
 
 }

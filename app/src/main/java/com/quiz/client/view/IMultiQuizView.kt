@@ -10,6 +10,6 @@ interface IMultiQuizView {
     fun onfindScoresByUUID(scores:List<Score>)
     fun onScoreDeviceUpdateSuccess()
     fun onWaitForOthers()
-    fun onPlayerReadySent()
+    fun onPlayerReadySentSuccess()
     fun onCheckNextQuestionAv()
 }

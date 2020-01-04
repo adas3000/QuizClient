@@ -12,7 +12,8 @@ interface IMultiQuizPresenter {
 
     fun onFindScoreByUUID(game_code:String)
 
+    fun onPlayerReadySent(game_code: String)
 
-
+    fun onNewQuestionCheck(game_code: String)
 
 }

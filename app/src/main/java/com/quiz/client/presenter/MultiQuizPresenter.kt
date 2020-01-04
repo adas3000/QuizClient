@@ -9,31 +9,30 @@ import retrofit2.Response
 
 class MultiQuizPresenter : IMultiQuizPresenter {
 
-    val iMultiQuizView:IMultiQuizView
+    val iMultiQuizView: IMultiQuizView
     val gameApiService: GameApiService
 
-    constructor(iMultiQuizView: IMultiQuizView,gameApiService: GameApiService) {
+    constructor(iMultiQuizView: IMultiQuizView, gameApiService: GameApiService) {
         this.iMultiQuizView = iMultiQuizView
         this.gameApiService = gameApiService
     }
 
     override fun onupdateDeviceScoreInGame(game_code: String, serial: String, howmany: String) {
 
-        val call = gameApiService.updateDeviceScoreInGame(game_code,serial,howmany)
+        val call = gameApiService.updateDeviceScoreInGame(game_code, serial, howmany)
 
 
-        call.enqueue(object:Callback<List<String>>{
+        call.enqueue(object : Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("onupdateDeviceScoreInGame failure:"+t.message)
+                println("onupdateDeviceScoreInGame failure:" + t.message)
                 iMultiQuizView.onError("onupdateDeviceScoreInGame Failure")
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     iMultiQuizView.onScoreDeviceUpdateSuccess()
-                }
-                else{
-                    println("onupdateDeviceScoreInGame response error:|CODE="+response.code()+"|MSG:"+response.body()+"|")
+                } else {
+                    println("onupdateDeviceScoreInGame response error:|CODE=" + response.code() + "|MSG:" + response.body() + "|")
                     iMultiQuizView.onError("onupdateDeviceScoreInGame result not 200")
                 }
             }
@@ -44,22 +43,21 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
     override fun onUpdateDeviceFinishedAnswering(game_code: String, serial: String) {
 
-        val call = gameApiService.updateDeviceFinishedAnsweringToQuestion(game_code,serial)
+        val call = gameApiService.updateDeviceFinishedAnsweringToQuestion(game_code, serial)
 
 
-        call.enqueue(object:Callback<List<String>>{
+        call.enqueue(object : Callback<List<String>> {
 
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("onUpdateDeviceFinishedAnswering failure:"+t.message)
+                println("onUpdateDeviceFinishedAnswering failure:" + t.message)
                 iMultiQuizView.onError("onUpdateDeviceFinishedAnswering Failure")
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
-                }
-                else{
-                    println("onUpdateDeviceFinishedAnswering response error:|CODE="+response.code()+"|MSG:"+response.body()+"|")
+                } else {
+                    println("onUpdateDeviceFinishedAnswering response error:|CODE=" + response.code() + "|MSG:" + response.body() + "|")
                     iMultiQuizView.onError("onUpdateDeviceFinishedAnswering result not 200")
                 }
             }
@@ -73,22 +71,20 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
         val call = gameApiService.checkAllDevicesAnswered(game_code)
 
-        call.enqueue(object:Callback<Boolean>{
+        call.enqueue(object : Callback<Boolean> {
             override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                println("onCheckAllDevicesAnswered failure:"+t.message)
+                println("onCheckAllDevicesAnswered failure:" + t.message)
                 iMultiQuizView.onError("onCheckAllDevicesAnswered Failure")
             }
 
             override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
 
-                if(response.isSuccessful && response.body()==true){
+                if (response.isSuccessful && response.body() == true) {
                     iMultiQuizView.oncheckAllDevicesAnsweredSuccess()
-                }
-                else if(response.isSuccessful && response.body()==false){
+                } else if (response.isSuccessful && response.body() == false) {
                     iMultiQuizView.onWaitForOthers()
-                }
-                else{
-                    println("onCheckAllDevicesAnswered response error:|CODE="+response.code()+"|MSG:"+response.body()+"|")
+                } else {
+                    println("onCheckAllDevicesAnswered response error:|CODE=" + response.code() + "|MSG:" + response.body() + "|")
                     iMultiQuizView.onError("onCheckAllDevicesAnswered result not 200")
                 }
 
@@ -103,24 +99,71 @@ class MultiQuizPresenter : IMultiQuizPresenter {
         val call = gameApiService.findScoresByUUID(game_code)
 
 
-        call.enqueue(object:Callback<List<Score>>{
+        call.enqueue(object : Callback<List<Score>> {
             override fun onFailure(call: Call<List<Score>>, t: Throwable) {
-                println("onFindScoreByUUID failure:"+t.message)
+                println("onFindScoreByUUID failure:" + t.message)
                 iMultiQuizView.onError("onFindScoreByUUID Failure")
             }
 
             override fun onResponse(call: Call<List<Score>>, response: Response<List<Score>>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     iMultiQuizView.onfindScoresByUUID(response.body()!!.toList())
-                }
-                else{
-                    println("onFindScoreByUUID response error:|CODE="+response.code()+"|MSG:"+response.body()+"|")
+                } else {
+                    println("onFindScoreByUUID response error:|CODE=" + response.code() + "|MSG:" + response.body() + "|")
                     iMultiQuizView.onError("onFindScoreByUUID result not 200")
                 }
             }
         })
 
+    }
+
+
+    override fun onNewQuestionCheck(game_code: String) {
+
+        val call = gameApiService.checkNextQuestionAvailable(game_code)
+
+        call.enqueue(object : Callback<Boolean> {
+            override fun onFailure(call: Call<Boolean>, t: Throwable) {
+                println("onNewQuestionCheck failure:" + t.message)
+                iMultiQuizView.onError("onNewQuestionCheck Failure")
+            }
+
+            override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
+                if (response.isSuccessful && response.body() == true) {
+                    iMultiQuizView.onCheckNextQuestionAv()
+                } else if (response.isSuccessful && response.body() == false) {
+                    iMultiQuizView.onWaitForOthers()
+                } else {
+                    println("onNewQuestionCheck failure:" + response.code())
+                    iMultiQuizView.onError("onNewQuestionCheck Failure")
+                }
+            }
+        })
 
 
     }
+
+    override fun onPlayerReadySent(game_code: String) {
+
+        val call = gameApiService.updateDeviceForNewQuestion(game_code)
+
+        call.enqueue(object : Callback<List<String>> {
+
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("updateDeviceForNewQuestion failure:" + t.message)
+                iMultiQuizView.onError("updateDeviceForNewQuestion Failure")
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if (response.isSuccessful) {
+                    iMultiQuizView.onPlayerReadySentSuccess()
+                } else {
+                    println("updateDeviceForNewQuestion failure:" + response.code())
+                    iMultiQuizView.onError("updateDeviceForNewQuestion Failure")
+                }
+            }
+        })
+
+    }
+
 }
