@@ -39,34 +39,8 @@ class MultiQuizPresenter : IMultiQuizPresenter {
             }
 
         })
-
     }
 
-    override fun onUpdateDeviceFinishedAnswering(game_code: String, serial: String) {
-
-        val call = gameApiService.updateDeviceFinishedAnsweringToQuestion(game_code, serial)
-
-
-        call.enqueue(object : Callback<List<String>> {
-
-            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("onUpdateDeviceFinishedAnswering failure:" + t.message)
-                iMultiQuizView.onError("onUpdateDeviceFinishedAnswering Failure")
-            }
-
-            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if (response.isSuccessful) {
-                    iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
-                } else {
-                    println("onUpdateDeviceFinishedAnswering response error:|CODE=" + response.code() + "|MSG:" + response.body() + "|")
-                    iMultiQuizView.onError("onUpdateDeviceFinishedAnswering result not 200")
-                }
-            }
-
-
-        })
-
-    }
 
     override fun onCheckAllDevicesAnswered(game_code: String) {
 
@@ -143,27 +117,6 @@ class MultiQuizPresenter : IMultiQuizPresenter {
         })
     }
 
-    override fun onPlayerReadySent(game_code: String) {
-
-        val call = gameApiService.updateDeviceForNewQuestion(game_code)
-
-        call.enqueue(object : Callback<List<String>> {
-
-            override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("onPlayerReadySent failure:" + t.message)
-                iMultiQuizView.onError("updateDeviceForNewQuestion Failure")
-            }
-
-            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if (response.isSuccessful) {
-                    iMultiQuizView.onPlayerReadySentSuccess()
-                } else {
-                    println("onPlayerReadySent failure:" + response.code())
-                    iMultiQuizView.onError("onPlayerReadySent Failure")
-                }
-            }
-        })
-    }
 
     override fun onUpdateDeviceAnswerState(serial: String, value: Boolean) {
 

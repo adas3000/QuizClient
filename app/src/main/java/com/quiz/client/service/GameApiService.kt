@@ -19,10 +19,6 @@ interface GameApiService {
                                 @Path("howmany")howmany:String): Call<List<String>>
 
     @Headers("Content-Type: application/json")
-    @PUT("/api/game/update/answer_finished/{uuid}/{serial}")
-    fun updateDeviceFinishedAnsweringToQuestion(@Path("uuid")uuid:String,@Path("serial")serial:String):Call<List<String>>
-
-    @Headers("Content-Type: application/json")
     @PUT("/api/game/update/answer/{serial}")
     fun updateDeviceAnswerState(@Path("serial")serial: String,@Body value:Boolean):Call<List<String>>
 
@@ -30,19 +26,13 @@ interface GameApiService {
     @PUT("/api/game/update/ready/{serial}")
     fun updateDeviceReadyForNextState(@Path("serial")serial: String,@Body value:Boolean):Call<List<String>>
 
-
     @Headers("Content-Type: application/json")
     @GET("/api/game/all/answered/{uuid}")
     fun checkAllDevicesAnswered(@Path("uuid")uuid:String):Call<Boolean>
 
-
     @Headers("Content-Type: application/json")
     @GET("/api/game/find/scores/{uuid}")
     fun findScoresByUUID(@Path("uuid")uuid:String):Call<List<Score>>
-
-    @Headers("Content-Type: application/json")
-    @PUT("/api/game/update/answer/checked/{serial}")
-    fun updateDeviceForNewQuestion(@Path("serial")serial:String):Call<List<String>>
 
     @Headers("Content-Type: application/json")
     @GET("/api/game/check/question/next/available/{uuid}")
