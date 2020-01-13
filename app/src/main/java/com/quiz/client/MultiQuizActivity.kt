@@ -1,15 +1,14 @@
 package com.quiz.client
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.fragment.QuestionFragment
 import com.quiz.client.fragment.StatsFragment
+import com.quiz.client.fragment.WaitFragment
 import com.quiz.client.model.Score
 import com.quiz.client.presenter.IMultiQuizPresenter
 import com.quiz.client.presenter.MultiQuizPresenter
@@ -20,13 +19,16 @@ import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IMultiQuizParent
 import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.activity_quiz.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView {
+
+    companion object {
+    private val WAIT_FRAGMENT_TAG = "WAIT_FRAGMENT"
+}
 
     @Inject
     lateinit var retrofit: Retrofit
@@ -132,16 +134,21 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onWaitForOthers() {
-        //todo do waiting screen
-        Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
-        TimeUnit.SECONDS.sleep(1)
 
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount,
-            allQuestionCount))
-        ft.commit()
-
-        multiQuizPresenter.onCheckAllDevicesAnswered(game_code)
+        val waitFragment:WaitFragment = supportFragmentManager.findFragmentByTag(WAIT_FRAGMENT_TAG) as WaitFragment
+        if(waitFragment.isVisible){
+            waitFragment.doCheck()
+        }
+        else {
+            val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+            ft.replace(
+                R.id.multi_quiz_placeholder, QuestionFragment.newInstance(
+                    allQuestionCount, this, correctCount,
+                    allQuestionCount
+                )
+            )
+            ft.commit()
+        }
 
     }
 
