@@ -135,6 +135,12 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         //todo do waiting screen
         Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
         TimeUnit.SECONDS.sleep(1)
+
+        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount,
+            allQuestionCount))
+        ft.commit()
+
         multiQuizPresenter.onCheckAllDevicesAnswered(game_code)
 
     }

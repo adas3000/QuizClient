@@ -1,8 +1,9 @@
 package com.quiz.client.presenter
 
+import java.io.Serializable
 
 
-interface IMultiQuizPresenter {
+interface IMultiQuizPresenter : Serializable {
 
     fun onupdateDeviceScoreInGame(game_code:String,serial:String,howmany:String)
 
