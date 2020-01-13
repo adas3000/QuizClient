@@ -144,7 +144,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         else{
             val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
             ft.replace(
-                R.id.multi_quiz_placeholder, WaitFragment.newInstance(multiQuizPresenter,game_code)
+                R.id.multi_quiz_placeholder, WaitFragment.newInstance(multiQuizPresenter,game_code), WAIT_FRAGMENT_TAG
             )
             ft.commit()
         }
