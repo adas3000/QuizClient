@@ -1,5 +1,6 @@
 package com.quiz.client.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,17 +25,20 @@ class StatsFragment : Fragment() {
 
      var value_ready:Boolean=false
      var value_answer:Boolean=false
+     var answer_was_correct:Boolean = false
 
     companion object{
         @JvmStatic
-        fun newInstance(value_answer:Boolean,value_ready:Boolean) = StatsFragment().apply {
+        fun newInstance(value_answer:Boolean,value_ready:Boolean,answer_was_correct:Boolean) = StatsFragment().apply {
             arguments = Bundle().apply {
                 putBoolean("value_answer",value_answer)
                 putBoolean("value_ready",value_ready)
+                putBoolean("answer_was_correct",answer_was_correct)
             }
         }.apply {
             this.value_ready = value_ready
             this.value_answer = value_answer
+            this.answer_was_correct = answer_was_correct
         }
     }
 
@@ -49,6 +53,11 @@ class StatsFragment : Fragment() {
             multiQuizPresenter.onUpdateDevice(serial,value_answer,value_ready)
         }
 
+        var color:String = "#82DD55"
+
+        if(!answer_was_correct) color = "#E23636"
+
+        this.view!!.setBackgroundColor(Color.parseColor(color))
     }
 
 

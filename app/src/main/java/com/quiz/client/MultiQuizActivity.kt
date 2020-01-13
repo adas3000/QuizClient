@@ -1,6 +1,7 @@
 package com.quiz.client
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
@@ -45,7 +46,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     var allQuestionCount: Int = 0
     var correctCount: Int = 0
-
+    var last_question_correct = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +81,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onNextQuestion(correct: Boolean, time_remaining: Int) {
-
+        last_question_correct = correct
         var color: String = "#82DD55" // success color
         val points_to_add: Int = countScore(time_remaining.toString())
         if (correct) {
@@ -123,7 +124,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     override fun onfindScoresByUUID(scores: List<Score>) {
         multiQuizPresenter.onUpdateDeviceReadyForNextState(getApplicationToken(),false)
 
-        val sf = StatsFragment.newInstance(false,true)
+        val sf = StatsFragment.newInstance(false,true,last_question_correct)
         sf.scores = scores
         sf.multiQuizPresenter = multiQuizPresenter
         sf.serial = getApplicationToken()
