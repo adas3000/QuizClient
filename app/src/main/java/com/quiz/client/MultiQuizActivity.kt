@@ -167,7 +167,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onWaitForNextQuestionAv() {
-        Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
 
         if(!fstats_layout_progressBar.isVisible) fstats_layout_progressBar.visibility = View.VISIBLE
 
