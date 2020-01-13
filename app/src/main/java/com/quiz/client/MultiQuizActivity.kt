@@ -135,17 +135,16 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onWaitForOthers() {
 
-        val waitFragment:WaitFragment = supportFragmentManager.findFragmentByTag(WAIT_FRAGMENT_TAG) as WaitFragment
-        if(waitFragment.isVisible){
+        var waitFragment = supportFragmentManager.findFragmentByTag(WAIT_FRAGMENT_TAG)
+
+        if(waitFragment!=null && waitFragment.isVisible){
+            waitFragment = waitFragment as WaitFragment
             waitFragment.doCheck()
         }
-        else {
+        else{
             val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
             ft.replace(
-                R.id.multi_quiz_placeholder, QuestionFragment.newInstance(
-                    allQuestionCount, this, correctCount,
-                    allQuestionCount
-                )
+                R.id.multi_quiz_placeholder, WaitFragment.newInstance(multiQuizPresenter,game_code)
             )
             ft.commit()
         }
