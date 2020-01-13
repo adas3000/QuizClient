@@ -2,6 +2,7 @@ package com.quiz.client
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -136,6 +137,10 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         multiQuizPresenter.onUpdateDeviceAnswerState(getApplicationToken(),true)
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+
+    }
+
     override fun onWaitForOthers() {
 
         var waitFragment = supportFragmentManager.findFragmentByTag(WAIT_FRAGMENT_TAG)
@@ -159,7 +164,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onCheckNextQuestionAv() {
-        if(fstats_layout_progressBar.isVisible) fstats_layout_progressBar.visibility = View.INVISIBLE
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount,
             allQuestionCount))
@@ -168,7 +172,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onWaitForNextQuestionAv() {
 
-        if(!fstats_layout_progressBar.isVisible) fstats_layout_progressBar.visibility = View.VISIBLE
 
         multiQuizPresenter.onNewQuestionCheck(game_code)
     }
