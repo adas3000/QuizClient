@@ -41,6 +41,7 @@
 
     <ProgressBar
             android:id="@+id/fstats_layout_progressBar"
+            android:visibility="invisible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 

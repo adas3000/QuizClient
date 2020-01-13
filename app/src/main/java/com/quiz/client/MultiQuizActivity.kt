@@ -2,7 +2,9 @@ package com.quiz.client
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentTransaction
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
@@ -19,6 +21,7 @@ import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IMultiQuizParent
 import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
+import kotlinx.android.synthetic.main.fstats_layout.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
 import java.util.concurrent.TimeUnit
@@ -156,6 +159,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onCheckNextQuestionAv() {
+        if(fstats_layout_progressBar.isVisible) fstats_layout_progressBar.visibility = View.INVISIBLE
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount,
             allQuestionCount))
@@ -164,7 +168,9 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onWaitForNextQuestionAv() {
         Toasty.normal(this,"Wait...",Toasty.LENGTH_SHORT).show()
-        TimeUnit.SECONDS.sleep(1)
+
+        if(!fstats_layout_progressBar.isVisible) fstats_layout_progressBar.visibility = View.VISIBLE
+
         multiQuizPresenter.onNewQuestionCheck(game_code)
     }
 
