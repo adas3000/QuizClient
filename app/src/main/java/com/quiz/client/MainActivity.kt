@@ -3,6 +3,8 @@ package com.quiz.client
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
 import com.google.firebase.FirebaseApp
@@ -37,8 +39,42 @@ class MainActivity : AppCompatActivity() , IMMenuView , IUserView {
 
     override fun onBlankNickName() {
 
+        var nick:String="unknown"
+
+
+
         this.runOnUiThread(Runnable {
-                
+
+            val editText:EditText = EditText(this)
+            val params:LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT)
+
+            val alertDialog:AlertDialog = AlertDialog.Builder(this)
+                .setTitle("Nick")
+                .setMessage("Hello,write your nickname and start QQuuizing!")
+                .setCancelable(false)
+                .setPositiveButton("Confirm",{dialog, which ->
+                    nick = editText.text.toString()
+
+                    if(nick.length < 3){
+                        Toasty.info(applicationContext,"Write at least 3 characters",Toasty.LENGTH_SHORT).show()
+                    }
+                    else{
+                        Toasty.success(applicationContext,"Ok",Toasty.LENGTH_SHORT).show()
+                    }
+                })
+                .create()
+
+            editText.layoutParams = params
+            alertDialog.setView(editText)
+
+            alertDialog.show()
+
+
+
+
+
+
         })
 
     }
