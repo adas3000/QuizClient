@@ -1,5 +1,6 @@
 package com.quiz.client.service
 
+import com.quiz.client.model.Device
 import com.quiz.client.model.Question
 import retrofit2.Call
 import retrofit2.http.*
@@ -10,6 +11,11 @@ interface OpponentApiService {
     @Headers("Content-Type: application/json")
     @POST("/api/queue/{serial}")
     fun goToQueue(@Path("serial") serial:String): Call<List<String>>
+
+
+    @Headers("Content-Type: application/json")
+    @POST("/api/queue/join")
+    fun joinToQueue(@Body device:Device):Call<List<String>>
 
     @Headers("Content-Type: application/json")
     @DELETE("/api/queue/{serial}")
