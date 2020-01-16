@@ -41,6 +41,7 @@ class CountDownTask : AsyncTask<Int, Int, Boolean> {
 
     override fun onProgressUpdate(vararg values: Int?) {
         textViewToUpdate.setText(values[0]!!.toString())
+        timeRemaining = values[0]!!
     }
 
     override fun onPostExecute(result: Boolean?) {

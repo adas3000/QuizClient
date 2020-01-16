@@ -81,14 +81,11 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
 
     override fun onNextQuestion(correct: Boolean, time_remaining: Int) {
         last_question_correct = correct
-        var color: String = "#82DD55" // success color
-        val points_to_add: Int = countScore(time_remaining.toString())
+        var points_to_add: Int = countScore(time_remaining.toString())
         if (correct) {
             correctCount++
-            Toasty.success(this, "Good", Toasty.LENGTH_SHORT).show()
         } else {
-            Toasty.error(this, "Wrong", Toasty.LENGTH_SHORT).show()
-            color = "#E23636" // error color
+            points_to_add = 0
         }
         allQuestionCount++
 
