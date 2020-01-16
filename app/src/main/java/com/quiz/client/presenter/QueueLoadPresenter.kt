@@ -1,5 +1,7 @@
 package com.quiz.client.presenter
 
+import com.quiz.client.component.DaggerAppComponent
+import com.quiz.client.model.Device
 import com.quiz.client.model.Question
 import com.quiz.client.service.OpponentApiService
 import com.quiz.client.util.QuestionListKeeper
@@ -8,15 +10,23 @@ import com.quiz.client.view.IQueueLoadView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
 class QueueLoadPresenter : IQueueLoadPresenter {
 
     val iQueueLoadView:IQueueLoadView
     val opponentApiService: OpponentApiService
 
+    @Inject
+    lateinit var nickName:String
+
+
     constructor(iQueueLoadView:IQueueLoadView,opponentApiService: OpponentApiService){
         this.iQueueLoadView = iQueueLoadView
         this.opponentApiService = opponentApiService
+
+        val appComponent = DaggerAppComponent.builder().build()
+        nickName = appComponent.provideNickName()
     }
 
     override fun onFindQuestionList(uuid:String) {
@@ -77,7 +87,8 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     override fun onGoToQueue() {
 
-        val call = opponentApiService.goToQueue(getApplicationToken())
+//        val call = opponentApiService.goToQueue(getApplicationToken())
+        val call = opponentApiService.joinToQueue(getApplicationToken(),nickName)
 
         call.enqueue(object: Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {

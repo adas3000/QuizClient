@@ -12,10 +12,9 @@ interface OpponentApiService {
     @POST("/api/queue/{serial}")
     fun goToQueue(@Path("serial") serial:String): Call<List<String>>
 
-
     @Headers("Content-Type: application/json")
-    @POST("/api/queue/join")
-    fun joinToQueue(@Body device:Device):Call<List<String>>
+    @POST("/api/queue/join/{serial}/{nickname}")
+    fun joinToQueue(@Path("serial")serial:String,@Path("nickname")nickname:String):Call<List<String>>
 
     @Headers("Content-Type: application/json")
     @DELETE("/api/queue/{serial}")
