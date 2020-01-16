@@ -87,7 +87,6 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     override fun onGoToQueue() {
 
-//        val call = opponentApiService.goToQueue(getApplicationToken())
         val call = opponentApiService.joinToQueue(getApplicationToken(),nickName)
 
         call.enqueue(object: Callback<List<String>>{
