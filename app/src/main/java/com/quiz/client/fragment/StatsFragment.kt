@@ -49,8 +49,13 @@ class StatsFragment : Fragment() {
         rv_stats.setHasFixedSize(true)
         rv_stats.adapter = RecyclerViewStatsAdapter(scores)
 
+        fstats_layout_progressBar.visibility = View.INVISIBLE
+        fstats_textView_goNext.visibility = View.VISIBLE
+
         fstats_textView_goNext.setOnClickListener {
             multiQuizPresenter.onUpdateDevice(serial,value_answer,value_ready)
+            fstats_layout_progressBar.visibility = View.VISIBLE
+            fstats_textView_goNext.visibility = View.INVISIBLE
         }
 
         var color:String = "#82DD55"
