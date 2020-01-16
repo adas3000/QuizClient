@@ -18,17 +18,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-
-    <TextView
-            android:id="@+id/fstats_textView_goNext"
-            android:background="@drawable/tv_frame"
+    <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:text="Next"
-            android:gravity="center"
-            android:textSize="24sp"
-    />
+            android:weightSum="1">
+
+        <View
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                android:id="@+id/fstats_textView_goNext"
+                android:layout_width="55dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/rounded_corner"
+                android:gravity="center"
+                android:text="Next"
+                android:textSize="24sp" />
+
+    </LinearLayout>
+
+
     </LinearLayout>
 
     <LinearLayout
