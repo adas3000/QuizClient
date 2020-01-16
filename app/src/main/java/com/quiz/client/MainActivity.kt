@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity(), IMMenuView, IUserView {
                     ).show()
                 } else {
                     alertDialog.dismiss()
+                    AppModule.usernickname = nick
                     userPresenter.saveNickName(nick)
                 }
 

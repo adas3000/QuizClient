@@ -93,8 +93,9 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
         )
 
 
-        textView_question_count.setText(correctCount.toString() + "/" + allQuestionCount.toString())
-
+//        textView_question_count.setText(correctCount.toString() + "/" + allQuestionCount.toString())
+          textView_question_count.setText(String.format(resources.getString(R.string.user_current_score_text),
+              correctCount.toString(),allQuestionCount,toString()))
     }
 
     override fun setNextQuestion(correct: Boolean) {

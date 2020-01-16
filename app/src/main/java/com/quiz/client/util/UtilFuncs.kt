@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import com.google.firebase.iid.FirebaseInstanceId
-import com.quiz.client.R
 
 fun hasInternetConnection(context: Context): Boolean {
 
@@ -50,13 +49,13 @@ fun getApplicationToken(): String {
 fun countScore(remainingTime:String):Int{
 
     val multipler :Int= 800
-    val bonus:Int
+    val time:Int
     try {
-        bonus = remainingTime.toInt()
+        time = remainingTime.toInt()
     }
     catch(e:NumberFormatException){
         println("NumberFormatE.,Msg:"+e.message)
         return 0
     }
-    return (multipler*5*0.001).toInt()
+    return (multipler*time*0.001).toInt()
 }
