@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
 import com.google.firebase.FirebaseApp
@@ -16,7 +17,9 @@ import com.quiz.client.view.IUserView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_main2.*
 
-class MainActivity : AppCompatActivity() , IMMenuView , IUserView {
+class MainActivity : AppCompatActivity(), IMMenuView, IUserView {
+
+    lateinit var userPresenter: IUserPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +27,8 @@ class MainActivity : AppCompatActivity() , IMMenuView , IUserView {
 
         FirebaseApp.initializeApp(this)
 
-        UserPresenter(this,Room.databaseBuilder(this,AppDatabase::class.java,"quizDB01").build()).checkNickNameSet()
+        userPresenter = UserPresenter(this, Room.databaseBuilder(this, AppDatabase::class.java, "quizDB01").build())
+        userPresenter.checkNickNameSet()
 
         MainActivity_textView_Play.setOnClickListener {
             onPlay()
@@ -39,49 +43,53 @@ class MainActivity : AppCompatActivity() , IMMenuView , IUserView {
 
     override fun onBlankNickName() {
 
-        var nick:String="unknown"
-
-
+        var nick: String = "unknown"
 
         this.runOnUiThread(Runnable {
 
-            val editText:EditText = EditText(this)
-            val params:LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT)
-
-            val alertDialog:AlertDialog = AlertDialog.Builder(this)
-                .setTitle("Nick")
-                .setMessage("Hello,write your nickname and start QQuuizing!")
-                .setCancelable(false)
-                .setPositiveButton("Confirm",{dialog, which ->
-                    nick = editText.text.toString()
-
-                    if(nick.length < 3){
-                        Toasty.info(applicationContext,"Write at least 3 characters",Toasty.LENGTH_SHORT).show()
-                    }
-                    else{
-                        Toasty.success(applicationContext,"Ok",Toasty.LENGTH_SHORT).show()
-                    }
-                })
-                .create()
-
+            val editText: EditText = EditText(this)
+            val params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
             editText.layoutParams = params
-            alertDialog.setView(editText)
+
+            val alertDialog: AlertDialog = AlertDialog.Builder(this)
+                .setTitle("Nick")
+                .setMessage("Hello,i've see that is your first time here,write your nickname and start QQuuizing!")
+                .setCancelable(false)
+                .setPositiveButton("Confirm", { dialog, which ->
+                })
+                .setView(editText)
+                .create()
 
             alertDialog.show()
 
+            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            positiveButton.setOnClickListener {
+                nick = editText.text.toString()
 
+                if (nick.length < 3) {
+                    Toasty.info(
+                        applicationContext,
+                        "Write at least 3 characters",
+                        Toasty.LENGTH_SHORT
+                    ).show()
+                } else {
+                    alertDialog.dismiss()
+                    userPresenter.saveNickName(nick)
+                }
 
-
+            }
 
 
         })
 
     }
 
-    override fun onError(msg:String) {
+    override fun onError(msg: String) {
         this.runOnUiThread(Runnable {
-            Toasty.error(this,msg,Toasty.LENGTH_SHORT).show()
+            Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
         })
     }
 
@@ -91,12 +99,12 @@ class MainActivity : AppCompatActivity() , IMMenuView , IUserView {
 
     override fun onExit() {
 
-        val builder:AlertDialog.Builder = AlertDialog.Builder(this)
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
             .setMessage("Are you sure?")
-            .setPositiveButton("Yes",{DialogInterface,i->
+            .setPositiveButton("Yes", { DialogInterface, i ->
                 finishAffinity()
             })
-            .setNegativeButton("No",{DialogInterface,i->
+            .setNegativeButton("No", { DialogInterface, i ->
                 DialogInterface.cancel()
             })
             .setCancelable(false)
@@ -110,7 +118,7 @@ class MainActivity : AppCompatActivity() , IMMenuView , IUserView {
     }
 
     override fun onPlay() {
-        startActivity(Intent(this,PlayKindActivity::class.java))
+        startActivity(Intent(this, PlayKindActivity::class.java))
         finish()
     }
 }
