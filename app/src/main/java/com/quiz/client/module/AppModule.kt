@@ -10,6 +10,8 @@ import javax.inject.Singleton
 @Module
 object AppModule {
 
+        var usernickname:String = "unknown"
+
     //.baseUrl("http://192.168.0.103:8082")
     //.baseUrl("http://10.0.2.2:8082")
         @Singleton
@@ -20,6 +22,12 @@ object AppModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build()
+        }
+
+        @Singleton
+        @Provides
+        fun provideUserNickName():String{
+            return usernickname
         }
 
 

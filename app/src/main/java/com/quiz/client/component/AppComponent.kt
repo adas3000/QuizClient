@@ -10,5 +10,6 @@ import javax.inject.Singleton
 interface AppComponent {
 
     fun provideRetrofit():Retrofit
+    fun provideNickName():String
 
 }

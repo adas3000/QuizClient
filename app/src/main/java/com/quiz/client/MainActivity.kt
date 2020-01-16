@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
 import androidx.room.Room
 import com.google.firebase.FirebaseApp
 import com.quiz.client.database.AppDatabase
+import com.quiz.client.module.AppModule
 import com.quiz.client.presenter.IUserPresenter
 import com.quiz.client.presenter.UserPresenter
 import com.quiz.client.view.IMMenuView
@@ -93,8 +93,8 @@ class MainActivity : AppCompatActivity(), IMMenuView, IUserView {
         })
     }
 
-    override fun onNickNameExist() {
-
+    override fun onNickNameExist(nick:String) {
+        AppModule.usernickname = nick
     }
 
     override fun onExit() {

@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_play_kind.*
 
 class PlayKindActivity : AppCompatActivity(), IPlayMenuView {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_kind)
@@ -26,8 +27,8 @@ class PlayKindActivity : AppCompatActivity(), IPlayMenuView {
 
     override fun onPlayAlone() {
 
-        if(!hasInternetConnection(this)){
-            Toasty.error(this,"No internet connection",Toasty.LENGTH_SHORT).show()
+        if (!hasInternetConnection(this)) {
+            Toasty.error(this, "No internet connection", Toasty.LENGTH_SHORT).show()
             return
         }
 
@@ -37,17 +38,17 @@ class PlayKindActivity : AppCompatActivity(), IPlayMenuView {
 
     override fun onPlayVsOpponent() {
 
-        if(!hasInternetConnection(this)){
-            Toasty.error(this,"No internet connection",Toasty.LENGTH_SHORT).show()
+        if (!hasInternetConnection(this)) {
+            Toasty.error(this, "No internet connection", Toasty.LENGTH_SHORT).show()
             return
         }
-        startActivity(Intent(this,OpponentKindActivity::class.java))
+        startActivity(Intent(this, OpponentKindActivity::class.java))
         finish()
     }
 
 
     override fun onBackPressed() {
-        startActivity(Intent(this,MainActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

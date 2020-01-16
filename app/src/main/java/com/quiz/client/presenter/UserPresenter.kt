@@ -21,6 +21,8 @@ class UserPresenter : IUserPresenter {
             val list = db.userDao().selectUser()
             if(list.size==0)
                 iUserView.onBlankNickName()
+            else
+                iUserView.onNickNameExist(list[0].nickName.toString())
         }).start()
 
 
