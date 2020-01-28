@@ -35,15 +35,17 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
 
     lateinit var category: String
 
+    var multi = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
         ButterKnife.bind(this)
 
-        val intent: Intent = intent
 
         category = intent.getStringExtra("category")
+        multi = intent.getBooleanExtra(getString(R.string.playActivity_multi_text),false)
 
         val questionCountSet:TreeSet<Int> = sortedSetOf(5,10,15,20,25,30)
 
@@ -64,10 +66,15 @@ class SecondActivity : AppCompatActivity(), IHowManyView {
     }
 
     override fun onHowManyResult(questionList: List<Question>) {
+        var intent = Intent(this,RoomActivity::class.java).apply {
+            putExtra("category",category)
+            putExtra("count",questionList.size)
+        }
 
-        QuestionListKeeper.questionListKeeper = questionList
-
-        val intent = Intent(this,QuizActivity::class.java)
+        if(!multi) {
+            QuestionListKeeper.questionListKeeper = questionList
+            intent = Intent(this, QuizActivity::class.java)
+        }
         startActivity(intent)
         finish()
     }

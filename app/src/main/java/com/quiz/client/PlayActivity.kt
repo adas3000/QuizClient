@@ -21,9 +21,13 @@ class PlayActivity : AppCompatActivity(),ICategoryView  {
     @Inject
     lateinit var retrofit: Retrofit
 
+    var multi:Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        multi = intent.getBooleanExtra(getString(R.string.playActivity_multi_text),false)
 
         ButterKnife.bind(this)
 
@@ -41,12 +45,14 @@ class PlayActivity : AppCompatActivity(),ICategoryView  {
 
 
 
+
     }
 
     override fun onCategoryResult(category: String) {
 
         val intent = Intent(this,SecondActivity::class.java).apply {
             putExtra("category",category)
+            putExtra(getString(R.string.playActivity_multi_text),multi)
         }
         startActivity(intent)
         finish()

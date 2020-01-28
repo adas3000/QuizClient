@@ -17,4 +17,6 @@
     <string name="points_for_good_question_text">475</string>
     <string name="time_to_answer_text">15</string>
     <string name="user_current_score_text">%s/%s</string>
+    <string name="room_activity_title_text">Set up your room</string>
+    <string name="playActivity_multi_text">multi</string>
 </resources>

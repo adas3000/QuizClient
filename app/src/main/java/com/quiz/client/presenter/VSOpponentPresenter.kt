@@ -17,9 +17,7 @@ class VSOpponentPresenter : IVSOpponentPresenter {
     }
 
     override fun onCreateRoom() {
-
-
-
+        iOpponentKindView.onRoom()
     }
 
     override fun onQueue(context: Context) {

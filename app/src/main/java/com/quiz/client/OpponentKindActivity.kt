@@ -48,7 +48,9 @@ class OpponentKindActivity : AppCompatActivity(), IOpponentKindView {
     }
 
     override fun onRoom() {
-        startActivity(Intent(this,RoomActivity::class.java))
+        startActivity(Intent(this,PlayActivity::class.java).apply {
+            putExtra(getString(R.string.playActivity_multi_text),true)
+        })
         finish()
     }
 

@@ -7,13 +7,24 @@ import android.content.Intent
 
 class RoomActivity : AppCompatActivity() {
 
+    lateinit var category: String
+    var questionCount = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_room)
+
+        category = intent.getStringExtra("category")
+        questionCount = intent.getIntExtra("count",5)
+
+
+
+
+
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(this,OpponentKindActivity::class.java))
+        startActivity(Intent(this,SecondActivity::class.java))
         finish()
     }
 
