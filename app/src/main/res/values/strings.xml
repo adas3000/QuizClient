@@ -10,8 +10,8 @@
     <string name="main_quit_text">Quit</string>
     <string name="play_kind_alone_text">Alone</string>
     <string name="play_kind_opponent_text">VS Opponent</string>
-    <string name="opponent_kind_queue_text">Queue</string>
-    <string name="opponent_kind_bluetooth_text">Bluetooth</string>
+    <string name="opponent_kind_queue_text">Find Game</string>
+    <string name="opponent_kind_bluetooth_text">Create Room</string>
     <string name="queue_load_text">Searching...</string>
     <string name="wait_load_text">Waiting for other player/s...</string>
     <string name="points_for_good_question_text">475</string>

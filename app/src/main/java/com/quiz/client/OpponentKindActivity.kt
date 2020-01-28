@@ -24,26 +24,14 @@ class OpponentKindActivity : AppCompatActivity(), IOpponentKindView {
 
         vsOpponentPresenter = VSOpponentPresenter(this)
 
-        OpponentKindActivity_textView_bluetooth.setOnClickListener {
-            vsOpponentPresenter.onBluetooth(enableBtnIntentRequestCode, BluetoothAdapter.getDefaultAdapter())
+        OpponentKindActivity_textView_createRoom.setOnClickListener {
+            vsOpponentPresenter.onCreateRoom()
         }
         OpponentKindActivity_textView_queue.setOnClickListener {
             vsOpponentPresenter.onQueue(this)
         }
 
 
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == enableBtnIntentRequestCode) {
-
-            if (resultCode == Activity.RESULT_OK) {
-                makeBluetoothConn()
-            }
-
-        }
     }
 
     override fun onBackPressed() {
@@ -59,13 +47,9 @@ class OpponentKindActivity : AppCompatActivity(), IOpponentKindView {
         Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
     }
 
-    override fun askForBluetooth(requestCode: Int) {
-        val enableBtnIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-        startActivityForResult(enableBtnIntent, requestCode)
-    }
-
-    override fun makeBluetoothConn() {
-
+    override fun onRoom() {
+        startActivity(Intent(this,RoomActivity::class.java))
+        finish()
     }
 
     override fun makeQueueConn() {
