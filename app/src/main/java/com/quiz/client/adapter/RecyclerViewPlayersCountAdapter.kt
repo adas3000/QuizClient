@@ -9,7 +9,8 @@ import com.quiz.client.R
 import com.quiz.client.presenter.IPlayersCountPresenter
 import java.util.*
 
-class RecyclerViewPlayersCountAdapter(val treeSet:TreeSet<Int>,val iPlayersCountPresenter: IPlayersCountPresenter)
+class RecyclerViewPlayersCountAdapter(val treeSet:TreeSet<Int>, val iPlayersCountPresenter: IPlayersCountPresenter,
+                                      val category:String,val questionCount:Int)
     :RecyclerView.Adapter<RecyclerViewPlayersCountAdapter.ViewHolder>() {
 
 
@@ -22,7 +23,7 @@ class RecyclerViewPlayersCountAdapter(val treeSet:TreeSet<Int>,val iPlayersCount
         holder.value.setText(treeSet.elementAt(position).toString())
 
         holder.value.setOnClickListener {
-            iPlayersCountPresenter.onCountSelect(treeSet.elementAt(position))
+            iPlayersCountPresenter.onCountSelect(category,questionCount,treeSet.elementAt(position))
         }
 
 
