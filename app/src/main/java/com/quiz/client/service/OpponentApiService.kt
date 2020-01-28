@@ -1,6 +1,7 @@
 package com.quiz.client.service
 
 import com.quiz.client.model.Device
+import com.quiz.client.model.NewRoomRequest
 import com.quiz.client.model.Question
 import retrofit2.Call
 import retrofit2.http.*
@@ -28,4 +29,8 @@ interface OpponentApiService {
     @GET("/api/game/{uuid}")
     fun findQuestionList(@Path("uuid")uuid:String):Call<List<Question>>
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/game/room")
+    fun createNewRoomRequest(@Body newRoomRequest: NewRoomRequest):Call<String>
+    
 }
