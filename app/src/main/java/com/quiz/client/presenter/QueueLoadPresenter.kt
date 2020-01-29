@@ -28,7 +28,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
         nickName = appComponent.provideNickName()
     }
 
-    override fun onFindQuestionList(uuid:String) {
+    override fun onGoForQuestionList(uuid:String) {
 
         val call = queueApiService.findQuestionList(uuid)
 
@@ -58,28 +58,26 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     }
 
-    override fun onSearchOpponent() {
+    override fun onSearchGame() {
 
-        val call = queueApiService.getOpponent(getApplicationToken())
+        val call = queueApiService.findGameInQueue(getApplicationToken())
 
         call.enqueue(object:Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
-                println("failure:"+t.message)
-                iQueueLoadView.onError("Cannot connect")
+                iQueueLoadView.onError(t.message.toString())
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.isSuccessful){
-                    println("success")
-                    onFindQuestionList(response.body()!![0])
+                if(response.code()==200){
+                    onGoForQuestionList(response.body()!![0])
                 }
-                else{
-                    println("response failure")
-                    println("body:"+response.body()+",code:"+response.code())
-                    iQueueLoadView.onError("Cannot connect")
+                else if(response.code()==202){
+                    iQueueLoadView.onNoRoomsFounded()
                 }
+                else iQueueLoadView.onError(response.message()+"|CODE:"+response.code())
             }
         })
+
 
 
     }
@@ -97,7 +95,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if(response.isSuccessful) {
                     println("success")
-                    onSearchOpponent()
+                    onSearchGame()
                 }
                 else{
                     println("response failure")

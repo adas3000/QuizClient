@@ -34,6 +34,6 @@ interface QueueApiService {
     fun createNewRoomRequest(@Body newRoomRequest: NewRoomRequest):Call<List<String>>
 
     @Headers("Content-Type: application/json")
-    @POST("/api/queue/{serial}/{nickname}/join")
-    fun findGameInQueue(@Path("serial")serial:String,@Path("nickname")nickname: String):Call<List<String>>
+    @POST("/api/queue/{serial}/join")
+    fun findGameInQueue(@Path("serial")serial:String):Call<List<String>>
 }

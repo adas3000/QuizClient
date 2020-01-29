@@ -3,7 +3,7 @@ package com.quiz.client.presenter
 
 interface IQueueLoadPresenter {
     fun onGoToQueue()
-    fun onSearchOpponent()
+    fun onSearchGame()
     fun onDropFromQueue()
-    fun onFindQuestionList(uuid:String)
+    fun onGoForQuestionList(uuid:String)
 }

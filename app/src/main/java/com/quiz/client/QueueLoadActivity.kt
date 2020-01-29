@@ -58,4 +58,8 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
         startActivity(intent)
         finish()
     }
+
+    override fun onNoRoomsFounded() {
+        queueLoadPresenter.onSearchGame()
+    }
 }
