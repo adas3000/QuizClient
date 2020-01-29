@@ -17,7 +17,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
     val queueApiService: QueueApiService
 
     @Inject
-    var nickName:String
+    lateinit var nickName:String
 
 
     constructor(iQueueLoadView:IQueueLoadView, queueApiService: QueueApiService){

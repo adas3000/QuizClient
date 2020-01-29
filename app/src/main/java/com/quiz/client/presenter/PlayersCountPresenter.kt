@@ -2,7 +2,9 @@ package com.quiz.client.presenter
 
 import android.util.Log
 import com.quiz.client.model.NewRoomRequest
+import com.quiz.client.model.Question
 import com.quiz.client.service.QueueApiService
+import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IPlayersCountView
 import retrofit2.Call
@@ -23,6 +25,36 @@ class PlayersCountPresenter : IPlayersCountPresenter {
         this.api = api
     }
 
+    override fun onGoForQuestionList(uuid: String) {
+
+        val call = api.findQuestionList(uuid)
+
+        call.enqueue(object:Callback<List<Question>>{
+
+            override fun onFailure(call: Call<List<Question>>, t: Throwable) {
+                println("failure:"+t.message)
+                view.onError("Cannot connect")
+            }
+
+            override fun onResponse(call: Call<List<Question>>, response: Response<List<Question>>) {
+
+                if(response.isSuccessful){
+                    println("success")
+                    QuestionListKeeper.questionListKeeper = response.body()!!
+                    view.onSuccess(uuid)
+                }
+                else{
+                    println("response failure,MSG:"+response.message()+",CODE:"+response.code())
+                    view.onError("Question List error")
+                }
+
+            }
+
+        })
+
+
+    }
+
     override fun onCountSelect(category: String, questionCount: Int, playerCount: Int) {
 
         val room = NewRoomRequest()
@@ -41,7 +73,7 @@ class PlayersCountPresenter : IPlayersCountPresenter {
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
                 if (response.isSuccessful) {
-                    view.onSuccess(response.body()!![0])
+                    onGoForQuestionList(response.body()!![0])
                 } else view.onError(response.message())
             }
         })
