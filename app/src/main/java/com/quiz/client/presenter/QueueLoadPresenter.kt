@@ -1,9 +1,8 @@
 package com.quiz.client.presenter
 
 import com.quiz.client.component.DaggerAppComponent
-import com.quiz.client.model.Device
 import com.quiz.client.model.Question
-import com.quiz.client.service.OpponentApiService
+import com.quiz.client.service.QueueApiService
 import com.quiz.client.util.QuestionListKeeper
 import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IQueueLoadView
@@ -15,15 +14,15 @@ import javax.inject.Inject
 class QueueLoadPresenter : IQueueLoadPresenter {
 
     val iQueueLoadView:IQueueLoadView
-    val opponentApiService: OpponentApiService
+    val queueApiService: QueueApiService
 
     @Inject
     lateinit var nickName:String
 
 
-    constructor(iQueueLoadView:IQueueLoadView,opponentApiService: OpponentApiService){
+    constructor(iQueueLoadView:IQueueLoadView, queueApiService: QueueApiService){
         this.iQueueLoadView = iQueueLoadView
-        this.opponentApiService = opponentApiService
+        this.queueApiService = queueApiService
 
         val appComponent = DaggerAppComponent.builder().build()
         nickName = appComponent.provideNickName()
@@ -31,7 +30,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     override fun onFindQuestionList(uuid:String) {
 
-        val call = opponentApiService.findQuestionList(uuid)
+        val call = queueApiService.findQuestionList(uuid)
 
         call.enqueue(object:Callback<List<Question>>{
 
@@ -61,7 +60,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     override fun onSearchOpponent() {
 
-        val call = opponentApiService.getOpponent(getApplicationToken())
+        val call = queueApiService.getOpponent(getApplicationToken())
 
         call.enqueue(object:Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
@@ -87,7 +86,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
 
     override fun onGoToQueue() {
 
-        val call = opponentApiService.joinToQueue(getApplicationToken(),nickName)
+        val call = queueApiService.joinToQueue(getApplicationToken(),nickName)
 
         call.enqueue(object: Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
@@ -110,7 +109,7 @@ class QueueLoadPresenter : IQueueLoadPresenter {
     }
 
     override fun onDropFromQueue() {
-        val call = opponentApiService.cancelQueue(getApplicationToken())
+        val call = queueApiService.cancelQueue(getApplicationToken())
 
         call.enqueue(object:Callback<List<String>>{
             override fun onFailure(call: Call<List<String>>, t: Throwable) {

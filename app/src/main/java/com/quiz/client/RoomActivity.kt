@@ -9,7 +9,7 @@ import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.presenter.IPlayersCountPresenter
 import com.quiz.client.presenter.PlayersCountPresenter
-import com.quiz.client.service.OpponentApiService
+import com.quiz.client.service.QueueApiService
 import com.quiz.client.view.IPlayersCountView
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.activity_room.*
@@ -34,7 +34,7 @@ class RoomActivity : AppCompatActivity(),IPlayersCountView {
         category = intent.getStringExtra("category")
         questionCount = intent.getIntExtra("count",5)
 
-        val playersCountPresenter:IPlayersCountPresenter = PlayersCountPresenter(this,retrofit.create(OpponentApiService::class.java))
+        val playersCountPresenter:IPlayersCountPresenter = PlayersCountPresenter(this,retrofit.create(QueueApiService::class.java))
         playersCountPresenter.onJoinToQueue(appComponent.provideNickName())
 
         val rv = rv_players_count
@@ -55,7 +55,10 @@ class RoomActivity : AppCompatActivity(),IPlayersCountView {
     }
 
     override fun onSuccess(gameUUID: String) {
-        Toasty.success(this,gameUUID,Toasty.LENGTH_LONG).show()
+        startActivity(Intent(this,WaitActivity::class.java).apply {
+            putExtra("serial",gameUUID)
+        })
+        finish()
     }
 
 }

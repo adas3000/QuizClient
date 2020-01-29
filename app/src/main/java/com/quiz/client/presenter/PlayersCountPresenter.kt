@@ -2,10 +2,9 @@ package com.quiz.client.presenter
 
 import android.util.Log
 import com.quiz.client.model.NewRoomRequest
-import com.quiz.client.service.OpponentApiService
+import com.quiz.client.service.QueueApiService
 import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IPlayersCountView
-import io.reactivex.Observer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -13,13 +12,13 @@ import retrofit2.Response
 class PlayersCountPresenter : IPlayersCountPresenter {
 
     val view: IPlayersCountView
-    val api: OpponentApiService
+    val api: QueueApiService
 
     companion object {
         private val TAG: String = "PlayersCountPresenter"
     }
 
-    constructor(view: IPlayersCountView, api: OpponentApiService) {
+    constructor(view: IPlayersCountView, api: QueueApiService) {
         this.view = view
         this.api = api
     }

@@ -7,8 +7,7 @@ import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
 import com.quiz.client.presenter.IQueueLoadPresenter
 import com.quiz.client.presenter.QueueLoadPresenter
-import com.quiz.client.service.OpponentApiService
-import com.quiz.client.util.*
+import com.quiz.client.service.QueueApiService
 import com.quiz.client.view.IQueueLoadView
 import es.dmoral.toasty.Toasty
 import retrofit2.Retrofit
@@ -19,7 +18,6 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
     @Inject
     lateinit var retrofit: Retrofit
 
-
     lateinit var queueLoadPresenter: IQueueLoadPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +27,9 @@ class QueueLoadActivity : AppCompatActivity(), IQueueLoadView {
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
         retrofit = appComponent.provideRetrofit()
 
-        val opponentApiService:OpponentApiService = retrofit.create(OpponentApiService::class.java)
+        val queueApiService:QueueApiService = retrofit.create(QueueApiService::class.java)
 
-        queueLoadPresenter = QueueLoadPresenter(this,opponentApiService)
+        queueLoadPresenter = QueueLoadPresenter(this,queueApiService)
         queueLoadPresenter.onGoToQueue()
     }
 
