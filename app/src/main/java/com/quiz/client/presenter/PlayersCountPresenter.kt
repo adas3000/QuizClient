@@ -33,7 +33,6 @@ class PlayersCountPresenter : IPlayersCountPresenter {
         room.serial = getApplicationToken()
 
 
-        //todo add device to quueue then do this --->>>> user rxjava (y)
         val call = api.createNewRoomRequest(room)
 
         call.enqueue(object : Callback<List<String>> {
