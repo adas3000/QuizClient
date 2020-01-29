@@ -1,8 +1,11 @@
 package com.quiz.client.presenter
 
+import android.util.Log
 import com.quiz.client.model.NewRoomRequest
 import com.quiz.client.service.OpponentApiService
+import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IPlayersCountView
+import io.reactivex.Observer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,9 +13,13 @@ import retrofit2.Response
 class PlayersCountPresenter : IPlayersCountPresenter {
 
     val view: IPlayersCountView
-    val api:OpponentApiService
+    val api: OpponentApiService
 
-    constructor(view: IPlayersCountView,api:OpponentApiService) {
+    companion object {
+        private val TAG: String = "PlayersCountPresenter"
+    }
+
+    constructor(view: IPlayersCountView, api: OpponentApiService) {
         this.view = view
         this.api = api
     }
@@ -23,19 +30,40 @@ class PlayersCountPresenter : IPlayersCountPresenter {
         room.category = category
         room.playerCount = playerCount
         room.questionCount = questionCount
+        room.serial = getApplicationToken()
 
+
+        //todo add device to quueue then do this --->>>> user rxjava (y)
         val call = api.createNewRoomRequest(room)
 
-        call.enqueue(object: Callback<String> {
-            override fun onFailure(call: Call<String>, t: Throwable) {
+        call.enqueue(object : Callback<List<String>> {
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 view.onError(t.message.toString())
             }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    view.onSuccess(response.body().toString())
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if (response.isSuccessful) {
+                    view.onSuccess(response.body()!![0])
+                } else view.onError(response.message())
+            }
+        })
+
+    }
+
+    override fun onJoinToQueue(nickname: String) {
+
+        val call = api.joinToQueue(getApplicationToken(), nickname)
+
+        call.enqueue(object : Callback<List<String>> {
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                view.onError(t.message.toString())
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                Log.d(TAG, response.message())
+                if (!response.isSuccessful) {
+                    view.onError(response.body().toString())
                 }
-                else view.onError(response.message())
             }
         })
 

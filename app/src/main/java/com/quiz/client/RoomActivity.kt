@@ -35,7 +35,7 @@ class RoomActivity : AppCompatActivity(),IPlayersCountView {
         questionCount = intent.getIntExtra("count",5)
 
         val playersCountPresenter:IPlayersCountPresenter = PlayersCountPresenter(this,retrofit.create(OpponentApiService::class.java))
-
+        playersCountPresenter.onJoinToQueue(appComponent.provideNickName())
 
         val rv = rv_players_count
         rv.layoutManager = GridLayoutManager(this,2)
@@ -44,7 +44,9 @@ class RoomActivity : AppCompatActivity(),IPlayersCountView {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(this,SecondActivity::class.java))
+        startActivity(Intent(this,SecondActivity::class.java).apply{
+            putExtra("category",category)
+        })
         finish()
     }
 

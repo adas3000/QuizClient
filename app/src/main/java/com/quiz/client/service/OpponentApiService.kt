@@ -30,7 +30,7 @@ interface OpponentApiService {
     fun findQuestionList(@Path("uuid")uuid:String):Call<List<Question>>
 
     @Headers("Content-Type: application/json")
-    @POST("/api/game/room")
-    fun createNewRoomRequest(@Body newRoomRequest: NewRoomRequest):Call<String>
+    @POST("/api/queue/new/room")
+    fun createNewRoomRequest(@Body newRoomRequest: NewRoomRequest):Call<List<String>>
     
 }
