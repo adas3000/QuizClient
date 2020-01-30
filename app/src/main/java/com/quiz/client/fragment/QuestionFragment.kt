@@ -64,6 +64,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
     override fun onStart() {
         super.onStart()
         setQuestionView(questionIndex)
+
     }
 
     fun setQuestionView(index:Int){
@@ -87,10 +88,6 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
         rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
 
-        rv_top.findViewHolderForAdapterPosition(allQuestionCount)
-            ?.itemView?.findViewById<TextView>(R.id.textView_square)?.setBackgroundColor(
-            Color.parseColor("#E23636")
-        )
 
           textView_question_count.setText(String.format(resources.getString(R.string.user_current_score_text),
               correctCount.toString(),allQuestionCount,toString()))

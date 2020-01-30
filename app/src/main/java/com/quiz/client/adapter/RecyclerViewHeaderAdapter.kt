@@ -1,6 +1,7 @@
 package com.quiz.client.adapter
 
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ class RecyclerViewHeaderAdapter(val count:Int) : RecyclerView.Adapter<RecyclerVi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        val v: View = LayoutInflater.from(parent?.context).inflate(R.layout.topchar_layout,parent,false)
+        val v: View = LayoutInflater.from(parent.context).inflate(R.layout.topchar_layout,parent,false)
         return ViewHolder(v)
     }
 

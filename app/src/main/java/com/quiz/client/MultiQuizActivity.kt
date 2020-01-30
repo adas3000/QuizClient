@@ -89,6 +89,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         }
         allQuestionCount++
 
+
+
         if(allQuestionCount==QuestionListKeeper.questionListKeeper.size){
 
             val intent = Intent(this,FinishActivity::class.java).apply{
@@ -151,7 +153,9 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
             ft.replace(
                 R.id.multi_quiz_placeholder, WaitFragment.newInstance(multiQuizPresenter,game_code), WAIT_FRAGMENT_TAG
             )
-            ft.commit()
+            ft.commit()//todo when 3 playesrs here was exception
+            // java.lang.IllegalStateException: Can not perform this action after onSaveInstanceState propably onWaitForOthers method involed in multquizpresenter when everybody finished answering but check it
+
         }
 
     }
