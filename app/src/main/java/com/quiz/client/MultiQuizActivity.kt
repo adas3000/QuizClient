@@ -1,12 +1,9 @@
 package com.quiz.client
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentTransaction
 import com.quiz.client.component.AppComponent
 import com.quiz.client.component.DaggerAppComponent
@@ -23,16 +20,14 @@ import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IMultiQuizParent
 import com.quiz.client.view.IMultiQuizView
 import es.dmoral.toasty.Toasty
-import kotlinx.android.synthetic.main.fstats_layout.*
 import retrofit2.Retrofit
 import java.lang.NullPointerException
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView {
 
     companion object {
-    private val WAIT_FRAGMENT_TAG = "WAIT_FRAGMENT"
+    private const val WAIT_FRAGMENT_TAG = "WAIT_FRAGMENT"
 }
 
     @Inject
@@ -47,7 +42,8 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     var allQuestionCount: Int = 0
     var correctCount: Int = 0
     var last_question_correct = false
-
+    val mutableListTopHeader:MutableList<Int> = mutableListOf()
+    var quiz_finished = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +54,6 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         if (temp_game_code == null) {
             throw NullPointerException("serial is null")
         }
-
         game_code = temp_game_code.toString()
 
         val appComponent: AppComponent = DaggerAppComponent.builder().build()
@@ -68,9 +63,13 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         multiQuizPresenter = MultiQuizPresenter(this, gameApiService)
 
 
+
+        val questionFragment =  QuestionFragment.newInstance(allQuestionCount, this,correctCount
+                ,allQuestionCount)
+        questionFragment.topHeaderList = mutableListTopHeader
+
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount
-        ,allQuestionCount))
+        ft.replace(R.id.multi_quiz_placeholder,questionFragment)
         ft.commit()
     }
 
@@ -84,28 +83,24 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
         var points_to_add: Int = countScore(time_remaining.toString())
         if (correct) {
             correctCount++
+            mutableListTopHeader.add(1)
         } else {
             points_to_add = 0
+            mutableListTopHeader.add(0)
         }
         allQuestionCount++
 
 
+        if(allQuestionCount==QuestionListKeeper.questionListKeeper.size)
+            quiz_finished = true
 
-        if(allQuestionCount==QuestionListKeeper.questionListKeeper.size){
 
-            val intent = Intent(this,FinishActivity::class.java).apply{
-                putExtra("score",correctCount.toString())
-                putExtra("all",allQuestionCount.toString())
-            }
-
-            startActivity(intent)
-            finish()
-        }
         multiQuizPresenter.onupdateDeviceScoreInGame(game_code, getApplicationToken(), points_to_add.toString())
     }
 
 
     override fun onError(msg: String) {
+        println("ERROR:"+msg)
         Toasty.error(this, msg, Toasty.LENGTH_SHORT).show()
         startActivity(Intent(this, MainActivity::class.java))
         finish()
@@ -122,7 +117,7 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     override fun onfindScoresByUUID(scores: List<Score>) {
         multiQuizPresenter.onUpdateDeviceReadyForNextState(getApplicationToken(),false)
 
-        val sf = StatsFragment.newInstance(false,true,last_question_correct)
+        val sf = StatsFragment.newInstance(false,true,last_question_correct,quiz_finished,game_code)
         sf.scores = scores
         sf.multiQuizPresenter = multiQuizPresenter
         sf.serial = getApplicationToken()
@@ -165,19 +160,31 @@ class MultiQuizActivity : AppCompatActivity(), IMultiQuizParent, IMultiQuizView 
     }
 
     override fun onCheckNextQuestionAv() {
+        val questionFragment =  QuestionFragment.newInstance(allQuestionCount, this,correctCount
+                ,allQuestionCount)
+        questionFragment.topHeaderList = mutableListTopHeader
+
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.multi_quiz_placeholder, QuestionFragment.newInstance(allQuestionCount, this,correctCount,
-            allQuestionCount))
+        ft.replace(R.id.multi_quiz_placeholder,questionFragment)
         ft.commit()
     }
 
     override fun onWaitForNextQuestionAv() {
-
-
         multiQuizPresenter.onNewQuestionCheck(game_code)
     }
 
     override fun onDeviceUpdateSuccess() {
         multiQuizPresenter.onNewQuestionCheck(game_code)
+    }
+
+    override fun onGameFinished() {
+
+        val intent = Intent(this,FinishActivity::class.java).apply{
+            putExtra("score",correctCount.toString())
+            putExtra("all",allQuestionCount.toString())
+        }
+        startActivity(intent)
+        finish()
+
     }
 }

@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.quiz.client.R
 
-class RecyclerViewHeaderAdapter(val count:Int) : RecyclerView.Adapter<RecyclerViewHeaderAdapter.ViewHolder>() {
+class RecyclerViewHeaderAdapter(val count:Int,val topHeaderList:MutableList<Int> = mutableListOf())
+    : RecyclerView.Adapter<RecyclerViewHeaderAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,6 +24,13 @@ class RecyclerViewHeaderAdapter(val count:Int) : RecyclerView.Adapter<RecyclerVi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        if(position<topHeaderList.size) {
+            if (topHeaderList[position] == 0)
+                holder.tv.findViewById<TextView>(R.id.textView_square).setBackgroundColor(Color.parseColor("#E23636"))
+            else if (topHeaderList[position] >= 1)
+                holder.tv.findViewById<TextView>(R.id.textView_square).setBackgroundColor(Color.parseColor("#82DD55"))
+        }
 
     }
 

@@ -19,7 +19,7 @@ class RecyclerViewAdapter(val categoryList:List<String>,val categoryView:ICatego
             categoryView.onCategoryResult(categoryList[position])
         }
 
-        holder?.categoryName?.text = categoryList[position]
+        holder.categoryName.text = categoryList[position]
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

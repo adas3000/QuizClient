@@ -42,4 +42,9 @@ interface GameApiService {
     @PUT("/api/game/update/device")
     fun updateDevice(@Body body:Device):Call<List<String>>
 
+    @Headers("Content-Type: application/json")
+    @DELETE("/api/game/{uuid}/{serial}")
+    fun gameFinished(@Path("uuid")uuid:String,@Path("serial")serial:String):Call<List<String>>
+
+
 }

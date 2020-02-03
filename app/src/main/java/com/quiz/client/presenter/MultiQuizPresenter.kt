@@ -3,6 +3,7 @@ package com.quiz.client.presenter
 import com.quiz.client.model.Device
 import com.quiz.client.model.Score
 import com.quiz.client.service.GameApiService
+import com.quiz.client.util.getApplicationToken
 import com.quiz.client.view.IMultiQuizView
 import retrofit2.Call
 import retrofit2.Callback
@@ -92,6 +93,32 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
     }
 
+    override fun onGameFinished(game_code: String) {
+
+
+        val call = gameApiService.gameFinished(game_code,getApplicationToken())
+
+        call.enqueue(object:Callback<List<String>>{
+            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+                println("OnGameFInished failure : "+t.message)
+                iMultiQuizView.onError(t.message.toString())
+            }
+
+            override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
+                if(response.code()==200){
+                    iMultiQuizView.onGameFinished()
+                }
+                else{
+                    println("OnGameFInished response failure : "+response.code()+","+response.body())
+                    iMultiQuizView.onError(response.body().toString())
+                }
+            }
+        })
+
+
+
+    }
+
 
     override fun onNewQuestionCheck(game_code: String) {
 
@@ -120,19 +147,18 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
     override fun onUpdateDeviceAnswerState(serial: String, value: Boolean) {
 
-        val call = gameApiService.updateDeviceAnswerState(serial,value)
+        val call = gameApiService.updateDeviceAnswerState(serial, value)
 
-        call.enqueue(object:Callback<List<String>>{
+        call.enqueue(object : Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 println("onUpdateDeviceAnswerState failure:" + t.message)
                 iMultiQuizView.onError("onUpdateDeviceAnswerState Failure")
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.isSuccessful){
-                   iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
-                }
-                else{
+                if (response.isSuccessful) {
+                    iMultiQuizView.onupdateDeviceFinishedAnsweringToQuestionSuccess()
+                } else {
                     println("onUpdateDeviceAnswerState failure:" + response.code())
                     iMultiQuizView.onError("onUpdateDeviceAnswerState Failure")
                 }
@@ -142,16 +168,16 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
     override fun onUpdateDeviceReadyForNextState(serial: String, value: Boolean) {
 
-        val call = gameApiService.updateDeviceReadyForNextState(serial,value)
+        val call = gameApiService.updateDeviceReadyForNextState(serial, value)
 
-        call.enqueue(object:Callback<List<String>>{
+        call.enqueue(object : Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 println("onUpdateDeviceReadyForNextState failure:" + t.message)
                 iMultiQuizView.onError("onUpdateDeviceReadyForNextState Failure")
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(!response.isSuccessful){
+                if (!response.isSuccessful) {
                     println("onUpdateDeviceReadyForNextState failure:" + response.code())
                     iMultiQuizView.onError("onUpdateDeviceReadyForNextState Failure")
                 }
@@ -161,19 +187,18 @@ class MultiQuizPresenter : IMultiQuizPresenter {
 
     override fun onUpdateDevice(serial: String, value_answer: Boolean, value_ready: Boolean) {
 
-        val call = gameApiService.updateDevice(Device(serial,value_answer,value_ready))
+        val call = gameApiService.updateDevice(Device(serial, value_answer, value_ready))
 
-        call.enqueue(object:Callback<List<String>>{
+        call.enqueue(object : Callback<List<String>> {
             override fun onFailure(call: Call<List<String>>, t: Throwable) {
                 println("onUpdateDevice failure:" + t.message)
                 iMultiQuizView.onError("onUpdateDevice Failure")
             }
 
             override fun onResponse(call: Call<List<String>>, response: Response<List<String>>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     iMultiQuizView.onDeviceUpdateSuccess()
-                }
-                else{
+                } else {
                     println("onUpdateDevice failure:" + response.code())
                     iMultiQuizView.onError("onUpdateDevice Failure")
                 }

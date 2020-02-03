@@ -19,4 +19,6 @@ interface IMultiQuizPresenter : Serializable {
 
     fun onUpdateDevice(serial:String,value_answer:Boolean,value_ready:Boolean)
 
+    fun onGameFinished(game_code: String)
+
 }

@@ -14,4 +14,5 @@ interface IMultiQuizView {
     fun onCheckNextQuestionAv()
     fun onWaitForNextQuestionAv()
     fun onDeviceUpdateSuccess()
+    fun onGameFinished()
 }

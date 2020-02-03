@@ -38,6 +38,8 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
 
     var questionIndex:Int = -1
 
+    var topHeaderList:MutableList<Int> = mutableListOf()
+
     companion object {
         @JvmStatic
         fun newInstance(questionIndex:Int, iMultiQuizParent: IMultiQuizParent,correctCount:Int,allQuestionCount:Int) = QuestionFragment().apply {
@@ -86,7 +88,7 @@ class QuestionFragment : Fragment(),IChoiceView,IMQuestionView {
         rv_top.layoutManager = GridLayoutManager(context,15)
         rv_top.setHasFixedSize(true)
 
-        rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size)
+        rv_top.adapter = RecyclerViewHeaderAdapter(questionList.size,topHeaderList)
 
 
           textView_question_count.setText(String.format(resources.getString(R.string.user_current_score_text),
